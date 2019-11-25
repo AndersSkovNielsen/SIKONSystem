@@ -9,14 +9,15 @@ namespace SIKONSystem.Models
 {
     public class User
     {
+        public string Name { get; set; }
         [Required]
-        [EmailAddress(ErrorMessage = "Usernames must be valid email address")]
-        [MinLength(6,ErrorMessage="address minimum 6 characters")]
-        public string Username { get; set; }
+        [EmailAddress(ErrorMessage = "Email skal være gyldig.")]
+        [MinLength(6, ErrorMessage="Email kan ikke være mindre end 6 karakterer.")]
+        public string Email { get; set; }
         [Required]
         //[CommonPasswords(ErrorMessage = "This password is too common")]
         [DataType(DataType.Password)]
-        [ MinLength(8, ErrorMessage = "This password is too short")]
+        [ MinLength(8, ErrorMessage = "Password skal være over 8 karakterer.")]
         public string Password { get; set; }
     }
 }
