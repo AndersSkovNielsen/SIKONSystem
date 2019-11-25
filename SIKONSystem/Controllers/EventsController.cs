@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SIKONSystem.Controllers
 {
-    public class UsersController : Controller
+    public class EventsController : Controller
     {
-        public IActionResult Profile()
+        public IActionResult Index()
         {
             return View();
         }
