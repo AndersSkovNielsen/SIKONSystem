@@ -8,18 +8,20 @@ namespace SIKONSystem.Models
 {
     public class BookingSingleton
     {
-        private static int _singleton;
+        private static BookingSingleton _instance;
         
-        public int create()
+        public static BookingSingleton Instance()
         {
-            if (_singleton == 0)
+            if (_instance == null)
             {
-              BookingSingleton Booker= new BookingSingleton();
+              _instance= new BookingSingleton();
             }
 
-            return _singleton;
+            return _instance;
 
         }
+
+       
 
         public bool Partake(Lecture L, User U)
         {
@@ -61,7 +63,7 @@ namespace SIKONSystem.Models
 
         private BookingSingleton()
         {
-            _singleton++;
+            
         }
     }
 }

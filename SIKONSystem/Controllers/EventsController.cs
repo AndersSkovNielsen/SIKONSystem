@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
 {
@@ -10,7 +12,19 @@ namespace SIKONSystem.Controllers
     {
         public IActionResult Index()
         {
+            BookingSingleton.Instance();
             return View();
+        }
+
+        public static bool Partake()
+        {
+            return BookingSingleton.Instance().Partake(new Lecture("d",2,new Room(5),new Collection<User>(),"",new Queue<User>()) , new User());
+            //return false;
+        }
+
+        public static bool Cancel()
+        {
+            return false;
         }
     }
 }

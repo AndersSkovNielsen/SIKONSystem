@@ -10,11 +10,11 @@ namespace SIKONSystem.Models
     public class Login
     {
         [Required]
-        [EmailAddress(ErrorMessage = "Usernames must be valid email address")]
+        [EmailAddress(ErrorMessage = "Brugernavn skal være en gyldig @mail adresse")]
         public string Username { get; set; }
         [Required]
         //[CommonPasswords(ErrorMessage = "This password is too common")]
-        [MinLength(8, ErrorMessage = "This password is too short")]
+        [MinLength(8, ErrorMessage = "Dette kodeord er for kort.")]
         public string Password { get; set; }
     }
 }

@@ -4,5 +4,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using System.Security.Cryptography.X509Certificates
+@model SIKONSystem.Models.Lecture
+
+
 <h1>Oplæg</h1>
 
+<p>
+    @Html.Label("Oplægets titel:")
+    @Html.LabelFor(x => x.Name)
+</p>
+
+<p>
+    @Html.Label("Oplægholder:")
+    @Html.LabelFor(x => x.Speaker)
+</p>
+
+<p>
+    @Html.Label("Lokale:")
+    @Html.LabelFor(x => x.Room.Name)
+</p>
+
+<p>@Html.Label("Antal pladser:")
+    @Html.LabelFor(x =>  x.Spaces)
+</p>
+
+<h4>
+    @Html.Label("Beskrivelse:")
+    
+</h4>
+<p>@Html.LabelFor(x => x.Description)</p>
+
+<p><button onclick="@SIKONSystem.Controllers.EventsController.Partake()">Tilmeld</button></p>

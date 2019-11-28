@@ -32,7 +32,10 @@ namespace SIKONSystem.Models
             set { _name = value; }
         }
 
-
+        public Room(int capacity)
+        {
+            _capacity = capacity;
+        }
 
     }
 }

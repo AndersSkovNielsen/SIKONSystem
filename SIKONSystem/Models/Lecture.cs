@@ -24,10 +24,25 @@ namespace SIKONSystem.Models
             set { _timeFrame = value; }
         }
 
+        private DateTime _startTime;
+
+        public DateTime StartTime
+        {
+            get { return _startTime; }
+            set { _startTime = value; }
+        }
+
         //enum _categoryColour
         //{
-           
+
         //}
+        private int spaces;
+
+        public int Spaces
+        {
+            get { return spaces; }
+            set { spaces = Room.Capacity-_partakers.Count; }
+        }
 
 
         private Room _room;
@@ -45,6 +60,16 @@ namespace SIKONSystem.Models
             get { return _partakers; }
             set { _partakers = value; }
         }
+
+
+        private string _description;
+
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
+
 
         private string _speaker;
 
