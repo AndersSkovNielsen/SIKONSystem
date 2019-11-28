@@ -62,6 +62,19 @@ namespace SIKONSystem.Models
             set { _waitingList = value; }
         }
 
+        public Lecture(string name, int timeFrame, Room room, Collection<User> partakers, string speaker, Queue<User> waitingList)
+        {
+            _name = name;
+            _timeFrame = timeFrame;
+            _room = room;
+            _partakers = partakers;
+            _speaker = speaker;
+            _waitingList = waitingList;
+        }
 
+        public Lecture()
+        {
+            
+        }
     }
 }
