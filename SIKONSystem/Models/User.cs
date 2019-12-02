@@ -12,6 +12,8 @@ namespace SIKONSystem.Models
     public class User
     {
         public string Telephone { get; set; }
+
+        public string Zipcode { get; set; }
         public string Name { get; set; }
         [Required]
 
