@@ -10,16 +10,26 @@ namespace SIKONSystem.Controllers
 {
     public class EventsController : Controller
     {
+        Lecture l1 = new Lecture("Autisme og dig", 2, new Room(30), new Collection<User>(), "Tony Attwood", new Queue<User>());
+
+        private Lecture _selectedLecture;
+        public Lecture SelectedLecture
+        {
+            get => _selectedLecture;
+            set => _selectedLecture = value;
+        }
+        [HttpGet]
         public IActionResult Index()
         {
+            _selectedLecture = l1;
             BookingSingleton.Instance();
             return View();
         }
-
+        
    
         public IActionResult Partake()
         {
-            BookingSingleton.Instance().Partake(new Lecture("d",2,new Room(5),new Collection<User>(),"",new Queue<User>()) , new User());
+            BookingSingleton.Instance().Partake(l1, new User());
             //return false;
             return RedirectToAction("Index");
 

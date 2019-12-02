@@ -5,35 +5,35 @@
 }
 
 @using System.Security.Cryptography.X509Certificates
-@model SIKONSystem.Models.Lecture
+@model SIKONSystem.Controllers.EventsController
 
 
 <h1>Oplæg</h1>
 
 <p>
     @Html.Label("Oplægets titel:")
-    @Html.LabelFor(x => x.Name)
+    @Html.LabelFor(x => x.SelectedLecture.Name)
 </p>
 
 <p>
     @Html.Label("Oplægholder:")
-    @Html.LabelFor(x => x.Speaker)
+    @Html.LabelFor(x => x.SelectedLecture.Speaker)
 </p>
 
 <p>
     @Html.Label("Lokale:")
-    @Html.LabelFor(x => x.Room.Name)
+    @Html.LabelFor(x => x.SelectedLecture.Room)
 </p>
 
 <p>@Html.Label("Antal pladser:")
-    @Html.LabelFor(x =>  x.Spaces)
+    @Html.LabelFor(x =>  x.SelectedLecture.Spaces)
 </p>
 
 <h4>
     @Html.Label("Beskrivelse:")
     
 </h4>
-<p>@Html.LabelFor(x => x.Description)</p>
+<p>@Html.LabelFor(x => x.SelectedLecture.Description)</p>
 
 @*<p><button> <a asp-controller="Events" asp-action="Partake"></a> </button> </p>
 <p><button asp-controller="Events" asp-a onclick="Partake" > Tilmeld 2</button></p>*@

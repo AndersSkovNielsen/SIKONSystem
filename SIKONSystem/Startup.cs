@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using SIKONSystem.Data;
 
 namespace SIKONSystem
 {
@@ -26,9 +28,11 @@ namespace SIKONSystem
         {
             services.AddControllersWithViews();
             services.Configure<IdentityOptions>(options =>
+            
             {
-                // Password settings.
-                options.Password.RequireDigit = true;
+           
+            // Password settings.
+            options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
@@ -44,6 +48,11 @@ namespace SIKONSystem
                 options.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
+                
+                //DB Settings:
+                
+            
+
             });
 
             services.ConfigureApplicationCookie(options =>
