@@ -7,7 +7,7 @@ using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
 {
-    public class UsersController : Controller
+    public class UsersOldController : Controller
     {
         public IActionResult Profile()
         {
