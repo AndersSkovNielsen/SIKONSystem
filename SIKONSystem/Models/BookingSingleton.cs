@@ -57,7 +57,7 @@ namespace SIKONSystem.Models
         private bool Attend(User U, Lecture L)
         {
             L.Partakers.Add(U);
-            U.Agenda.Lectures.Add(L);
+            //U.Agenda.Lectures.Add(L);
             return true;
         }
 
