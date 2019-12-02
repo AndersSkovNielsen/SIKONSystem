@@ -21,7 +21,8 @@ namespace SIKONSystem.Controllers
         {
             BookingSingleton.Instance().Partake(new Lecture("d",2,new Room(5),new Collection<User>(),"",new Queue<User>()) , new User());
             //return false;
-            return Index();
+            return RedirectToAction("Index");
+
         }
 
         public static bool Cancel()
