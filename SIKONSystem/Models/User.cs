@@ -11,6 +11,7 @@ namespace SIKONSystem.Models
 /// </summary>
     public class User
     {
+        public string Telephone { get; set; }
         public string Name { get; set; }
         [Required]
 
