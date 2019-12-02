@@ -11,6 +11,8 @@ namespace SIKONSystem.Models
 /// </summary>
     public class User
     {
+
+        public int Id { get; set; }
         public string Telephone { get; set; }
 
         public string Zipcode { get; set; }
@@ -21,19 +23,11 @@ namespace SIKONSystem.Models
         [MinLength(6, ErrorMessage="Email kan ikke være mindre end 6 karakterer.")]
         public string Email { get; set; }
 
-        [Required]
-        //[CommonPasswords(ErrorMessage = "This password is too common")]
-        [DataType(DataType.Password)]
-        [ MinLength(8, ErrorMessage = "Password skal være over 8 karakterer.")]
-        public string Password { get; set; }
-
-        private Schedule _agenda;
-
-        public Schedule Agenda
-        {
-            get { return _agenda; }
-            set { _agenda = value; }
-        }
+        //[Required]
+        ////[CommonPasswords(ErrorMessage = "This password is too common")]
+        //[DataType(DataType.Password)]
+        //[ MinLength(8, ErrorMessage = "Password skal være over 8 karakterer.")]
+        //public string Password { get; set; }
 
         private string _address;
 
@@ -43,10 +37,18 @@ namespace SIKONSystem.Models
             set { _address = value; }
         }
 
+        //private Schedule _agenda;
 
-        public User()
-        {
-            _agenda = new Schedule();
-        }
+        //public Schedule Agenda
+        //{
+        //    get { return _agenda; }
+        //    set { _agenda = value; }
+        //}
+
+
+        //public User()
+        //{
+        //    _agenda = new Schedule();
+        //}
     }
 }
