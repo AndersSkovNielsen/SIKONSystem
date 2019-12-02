@@ -16,10 +16,12 @@ namespace SIKONSystem.Controllers
             return View();
         }
 
-        public static bool Partake()
+   
+        public IActionResult Partake()
         {
-            return BookingSingleton.Instance().Partake(new Lecture("d",2,new Room(5),new Collection<User>(),"",new Queue<User>()) , new User());
+            BookingSingleton.Instance().Partake(new Lecture("d",2,new Room(5),new Collection<User>(),"",new Queue<User>()) , new User());
             //return false;
+            return Index();
         }
 
         public static bool Cancel()
