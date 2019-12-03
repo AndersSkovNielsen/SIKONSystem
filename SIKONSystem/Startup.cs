@@ -1,5 +1,3 @@
-using SIKONSystem.Data;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using SIKONSystem.Data;
 
 namespace SIKONSystem
 {
@@ -31,10 +31,15 @@ namespace SIKONSystem
             services.AddDbContext<MvcUserContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
 
+            services.AddDbContext<MVCLectureContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
+
             services.Configure<IdentityOptions>(options =>
+            
             {
-                // Password settings.
-                options.Password.RequireDigit = true;
+           
+            // Password settings.
+            options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
@@ -50,6 +55,11 @@ namespace SIKONSystem
                 options.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
+                
+                //DB Settings:
+                
+            
+
             });
 
             services.ConfigureApplicationCookie(options =>
