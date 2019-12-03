@@ -16,6 +16,7 @@ namespace SIKONSystem.Data
         }
 
         public DbSet<Lecture> Lecture { get; set; }
+
     }
     
     

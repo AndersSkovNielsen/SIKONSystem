@@ -1,40 +1,66 @@
-﻿
+﻿@model IEnumerable<SIKONSystem.Models.Lecture>
+
 @{
-    ViewData["Title"] = "Oplæg";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using System.Security.Cryptography.X509Certificates
-@model SIKONSystem.Controllers.EventsController
-
-
-<h1>Oplæg</h1>
+<h1>Index</h1>
 
 <p>
-    @Html.Label("Oplægets titel:")
-    @Html.LabelFor(x => x.SelectedLecture.Name)
+    <a asp-action="Create">Create New</a>
 </p>
-
-<p>
-    @Html.Label("Oplægholder:")
-    @Html.LabelFor(x => x.SelectedLecture.Speaker)
-</p>
-
-<p>
-    @Html.Label("Lokale:")
-    @Html.LabelFor(x => x.SelectedLecture.Room)
-</p>
-
-<p>@Html.Label("Antal pladser:")
-    @Html.LabelFor(x =>  x.SelectedLecture.Spaces)
-</p>
-
-<h4>
-    @Html.Label("Beskrivelse:")
-    
-</h4>
-<p>@Html.LabelFor(x => x.SelectedLecture.Description)</p>
-
-@*<p><button> <a asp-controller="Events" asp-action="Partake"></a> </button> </p>
-<p><button asp-controller="Events" asp-a onclick="Partake" > Tilmeld 2</button></p>*@
-<a asp-controller="Events" asp-action="Partake">Tilmeld</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeFrame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Spaces)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speaker)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeFrame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spaces)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speaker)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

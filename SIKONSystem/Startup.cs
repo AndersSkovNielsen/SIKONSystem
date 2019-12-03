@@ -1,5 +1,3 @@
-using SIKONSystem.Data;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +30,9 @@ namespace SIKONSystem
 
             services.AddDbContext<MvcUserContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
+
+            services.AddDbContext<MVCLectureContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
 
             services.Configure<IdentityOptions>(options =>
             

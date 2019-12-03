@@ -1,43 +1,153 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SIKONSystem.Data;
 using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
 {
     public class EventsController : Controller
     {
-        Lecture l1 = new Lecture("Autisme og dig", 2, new Room(30), new Collection<User>(), "Tony Attwood", new Queue<User>());
+        private readonly MVCLectureContext _context;
 
-        private Lecture _selectedLecture;
-        public Lecture SelectedLecture
+        public EventsController(MVCLectureContext context)
         {
-            get => _selectedLecture;
-            set => _selectedLecture = value;
+            _context = context;
         }
-        [HttpGet]
-        public IActionResult Index()
+
+        // GET: Events
+        public async Task<IActionResult> Index()
         {
-            _selectedLecture = l1;
-            BookingSingleton.Instance();
+            return View(await _context.Lecture.ToListAsync());
+        }
+
+        // GET: Events/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var lecture = await _context.Lecture
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (lecture == null)
+            {
+                return NotFound();
+            }
+
+            return View(lecture);
+        }
+
+        // GET: Events/Create
+        public IActionResult Create()
+        {
             return View();
         }
-        
-   
-        public IActionResult Partake()
-        {
-            BookingSingleton.Instance().Partake(l1, new User());
-            //return false;
-            return RedirectToAction("Index");
 
+        // POST: Events/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,TimeFrame,StartTime,Spaces,Description,Speaker")] Lecture lecture)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(lecture);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(lecture);
         }
 
-        public static bool Cancel()
+        // GET: Events/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            return false;
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var lecture = await _context.Lecture.FindAsync(id);
+            if (lecture == null)
+            {
+                return NotFound();
+            }
+            return View(lecture);
+        }
+
+        // POST: Events/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TimeFrame,StartTime,Spaces,Description,Speaker")] Lecture lecture)
+        {
+            if (id != lecture.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(lecture);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!LectureExists(lecture.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(lecture);
+        }
+
+        // GET: Events/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var lecture = await _context.Lecture
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (lecture == null)
+            {
+                return NotFound();
+            }
+
+            return View(lecture);
+        }
+
+        // POST: Events/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var lecture = await _context.Lecture.FindAsync(id);
+            _context.Lecture.Remove(lecture);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool LectureExists(int id)
+        {
+            return _context.Lecture.Any(e => e.Id == id);
         }
     }
 }
