@@ -33,6 +33,10 @@ namespace SIKONSystem
 
             services.AddDbContext<MVCLectureContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
+            
+            services.AddDbContext<MvcRoomContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
+
 
             services.Configure<IdentityOptions>(options =>
             

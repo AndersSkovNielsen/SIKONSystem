@@ -32,10 +32,13 @@ namespace SIKONSystem.Models
             set { _name = value; }
         }
 
-        public Room(int capacity)
+        public Room(int capacity, string name)
         {
             _capacity = capacity;
+            _name = name;
         }
 
+
+        public Room() { }
     }
 }
