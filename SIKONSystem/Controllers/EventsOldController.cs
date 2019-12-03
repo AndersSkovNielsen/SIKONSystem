@@ -20,7 +20,7 @@ namespace SIKONSystem.Controllers
 
 
 
-        Lecture l1 = new Lecture("Autisme og dig", 2, new Room(30), new Collection<User>(), "Tony Attwood", new Queue<User>());
+        Lecture l1 = new Lecture("Autisme og dig", 2, new Room(30,"C.20.06"), new Collection<User>(), "Tony Attwood", new Queue<User>());
 
         private Lecture _selectedLecture;
         public Lecture SelectedLecture
