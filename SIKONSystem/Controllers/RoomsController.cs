@@ -19,6 +19,14 @@ namespace SIKONSystem.Controllers
             _context = context;
         }
 
+
+        //DisplayModel metode til at gøre Rooms-tabellen tilgængelig  for Lecture
+
+        public async Task<List<Room>> ToDisplayModel()
+        {
+            return await _context.Room.ToListAsync();
+        }
+
         // GET: Rooms
         public async Task<IActionResult> Index()
         {

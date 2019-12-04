@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using SIKONSystem.Data;
 using SIKONSystem.Models;
@@ -13,11 +14,20 @@ namespace SIKONSystem.Controllers
     public class EventsController : Controller
     {
         private readonly MVCLectureContext _context;
+        
 
         public EventsController(MVCLectureContext context)
         {
             _context = context;
         }
+
+        public IQueryable<string> RoomQuery() {  IQueryable<string> retRoom = from R in _context.Lecture
+            select R.Room.Name;
+            return retRoom;
+        }
+        
+            
+            
 
         // GET: Events
         public async Task<IActionResult> Index()
@@ -46,7 +56,8 @@ namespace SIKONSystem.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
-            return View();
+            
+            return View(RoomQuery().ToString());
         }
 
         // POST: Events/Create
