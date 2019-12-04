@@ -13,11 +13,11 @@ namespace SIKONSystem.DisplayModel
     public class LectureDisplayModel
     {
          //private List<Room> makeRequest() {return   }
-        public List<Lecture> LectureDisplayList { get; set; }
+        public Lecture LectureDisplay { get; set; }
         public List<User> UserDisplayList { get; set; }
         public List<Room> RoomDisplayList { get; set; }
-        public SelectList Rooms {
-            get /*{ return  ;}*/; set; }
+        public SelectList Rooms { get /*{ return  ;}*/; set; }
+        public string RoomName { get; set; }
 
     }
 }

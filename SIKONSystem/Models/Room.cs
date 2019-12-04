@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace SIKONSystem.Models
     {
         private int _capacity;
 
+        [Display(Name="Kapacitet")]
         public int Capacity
         {
             get { return _capacity; }
@@ -26,12 +28,14 @@ namespace SIKONSystem.Models
 
         private string _name;
 
+        [Display(Name="Lokale")]
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
+        
         public Room(int capacity, string name)
         {
             _capacity = capacity;

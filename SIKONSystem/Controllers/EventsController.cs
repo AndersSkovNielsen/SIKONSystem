@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using SIKONSystem.Data;
+using SIKONSystem.DisplayModel;
 using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
@@ -32,6 +33,7 @@ namespace SIKONSystem.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
+            BookingSingleton.Instance();
             return View(await _context.Lecture.ToListAsync());
         }
 
@@ -54,10 +56,16 @@ namespace SIKONSystem.Controllers
         }
 
         // GET: Events/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            
-            return View(RoomQuery().ToString());
+            IQueryable<string> retRoom = from R in _context.Lecture
+                select R.Room.Name;
+            var Display = new LectureDisplayModel
+            {
+                Rooms = new SelectList(await RoomQuery().Distinct().ToListAsync())
+            };
+
+            return View(Display);
         }
 
         // POST: Events/Create
@@ -159,6 +167,14 @@ namespace SIKONSystem.Controllers
         private bool LectureExists(int id)
         {
             return _context.Lecture.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult>  Partake(int? id)
+        {
+            BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
+            //return false;
+            return RedirectToAction("Index");
+
         }
     }
 }

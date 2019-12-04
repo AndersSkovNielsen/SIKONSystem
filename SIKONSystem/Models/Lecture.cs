@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace SIKONSystem.Models
         public int Id { get; set; }
         private string _name;
 
+        [Display(Name= "Titel")]
         public string Name
         {
             get { return _name; }
@@ -26,7 +28,7 @@ namespace SIKONSystem.Models
         }
 
         private DateTime _startTime;
-
+        [Display(Name="Starttidspunkt")]
         public DateTime StartTime
         {
             get { return _startTime; }
@@ -39,6 +41,7 @@ namespace SIKONSystem.Models
         //}
         private int spaces;
 
+        [Display(Name="Antal Pladser")]
         public int Spaces
         {
             get { return spaces; }
@@ -55,7 +58,7 @@ namespace SIKONSystem.Models
         }
 
         private Collection<User> _partakers;
-
+        
         public Collection<User> Partakers
         {
             get { return _partakers; }
@@ -64,7 +67,7 @@ namespace SIKONSystem.Models
 
 
         private string _description;
-
+        [Display(Name="Beskrivelse:")]
         public string Description
         {
             get { return _description; }
@@ -73,7 +76,7 @@ namespace SIKONSystem.Models
 
 
         private string _speaker;
-
+        [Display(Name="Oplægsholder:")]
         public string Speaker
         {
             get { return _speaker; }
