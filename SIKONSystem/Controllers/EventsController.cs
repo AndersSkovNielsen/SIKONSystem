@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using SIKONSystem.Data;
@@ -29,6 +30,14 @@ namespace SIKONSystem.Controllers
             return retRoom;
         }
 
+        public IQueryable<Room> GetRoomsQuery()
+        {
+            var rooms = from R in _context.Lecture
+                select R.Room;
+            
+            return rooms;
+
+        }
 
 
 
