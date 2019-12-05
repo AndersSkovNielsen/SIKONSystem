@@ -15,7 +15,9 @@ namespace SIKONSystem.Controllers
     public class EventsController : Controller
     {
         private readonly MVCLectureContext _context;
-        
+        private LectureDisplayModel Display = new LectureDisplayModel();
+
+
 
         public EventsController(MVCLectureContext context)
         {
@@ -26,15 +28,21 @@ namespace SIKONSystem.Controllers
             select R.Room.Name;
             return retRoom;
         }
-        
-            
-            
+
+
+
 
         // GET: Events
         public async Task<IActionResult> Index()
         {
+            //IQueryable<int> dbLenght = from R in _context.Lecture
+            //    select _context.Lecture.Count();
+            var displaylist = from L in _context.Lecture
+                select L;
+
+            Display.LextureDisplayList = await displaylist.ToListAsync();
             BookingSingleton.Instance();
-            return View(await _context.Lecture.ToListAsync());
+            return View(Display);
         }
 
         // GET: Events/Details/5
@@ -60,11 +68,9 @@ namespace SIKONSystem.Controllers
         {
             IQueryable<string> retRoom = from R in _context.Lecture
                 select R.Room.Name;
-            var Display = new LectureDisplayModel
-            {
-                Rooms = new SelectList(await RoomQuery().Distinct().ToListAsync())
-            };
 
+            Display.Rooms = new SelectList(await RoomQuery().Distinct().ToListAsync());
+                
             return View(Display);
         }
 

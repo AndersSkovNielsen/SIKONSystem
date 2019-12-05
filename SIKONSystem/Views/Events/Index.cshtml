@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SIKONSystem.Models.Lecture>
+﻿@model SIKONSystem.DisplayModel.LectureDisplayModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,48 +10,53 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LextureDisplayList[0].Name)
             </th>
-            
+
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
+                @Html.DisplayNameFor(model => model.LextureDisplayList[0].StartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Speaker)
+                @Html.DisplayNameFor(model => model.LextureDisplayList[0].Speaker)
             </th>
-            
+
             <th>
-                @Html.DisplayNameFor(model => model.Spaces)
+                @Html.DisplayNameFor(model => model.LextureDisplayList[0].Spaces)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Speaker)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Spaces)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.LextureDisplayList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speaker)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Spaces)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
+</table>
+
+<table class="table table-bordered">
+    @Html.Raw(Model.PrintSchedule(Model.GatherSchedule(3,4,Model.LextureDisplayList))) 
 </table>
