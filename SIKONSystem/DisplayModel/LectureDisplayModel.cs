@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +25,9 @@ namespace SIKONSystem.DisplayModel
 
         public async Task<string> GatherSchedule(int noOfRooms, int noOfTimeBlocks, List<Lecture> lectures)
         {// Hvordan kan vi tilføje asyncronitet til denne metode?? -Frederik
+
+
+            //placeholder operationer
             RoomDisplayList=new List<Room>();
             Room r1 = new Room(20, "A4 Køge");
             Room r2 = new Room(20, "B5 KBH");
@@ -32,29 +36,66 @@ namespace SIKONSystem.DisplayModel
             RoomDisplayList.Add(r1);
             RoomDisplayList.Add(r2);
             RoomDisplayList.Add(r3);
+            //slut på placeholder ops
 
              RoomDisplayList.Sort((x, y) => string.Compare(x.Name, y.Name));
-
+             string retValue = "";
             string headerstring ="";
-           for (int i = 0; i < noOfRooms; i++)
+            for (int iTime = 0; iTime < noOfTimeBlocks; iTime++)
             {
-                headerstring = $"{headerstring}" + $"<th>{RoomDisplayList[i].Name}</th>";
+                if (iTime == 0)
+                {
+                    for (int iRoom = 0; iRoom < noOfRooms; iRoom++)
+                    {
+                        headerstring = $"{headerstring}" + $"<th>{RoomDisplayList[iRoom].Name}</th>";
+                    }
+
+                    List<string> retlist = new List<string>();
+                    
+                    retValue = $"<thead><tr/><th/>{headerstring}</tr></thead>";
+                }
+
+                else
+                {
+                    string lineString = "";
+                                                //noOfRooms har +1 fordi jeg bruger index 0 tid horisontalt til tidsangivelse
+                    for (int iRoom = 0; iRoom < noOfRooms+1; iRoom++)
+                    {
+                        if (iRoom == 0)
+                        {
+                            //skriv tidsblok interval på første kolonne af hver række
+                            lineString = $"<th>Blok {iTime}</th>";
+                        }
+                        else
+                        {        //errorprevetion room existerer ikke
+                                 //iRoom -1 er igen fordi index 0 bruges til tidsangivelse
+                            if(LextureDisplayList[iRoom - 1].Room == null)
+                            {
+                                //placholder til test
+                                LextureDisplayList[iRoom - 1].Room = RoomDisplayList[iRoom-1];
+                            }
+                            else
+                            {
+                            
+                                if (LextureDisplayList[iRoom - 1].Room.Name == RoomDisplayList[iRoom - 1].Name)
+                                {
+                                    //indsæt lecture i tabellen
+                                    lineString = lineString + $"<td>{LextureDisplayList[iRoom - 1].Name}</td>";
+                                }
+                                else
+                                {
+                                    lineString = lineString + $"<td></td>";
+                                }
+                            }
+                        }
+                    }
+                    retValue = retValue + $"<tr>{lineString}</tr>";
+                }
             }
-            
-            List<string> retlist= new List<string>();
-            string retValue = "";
-            retValue=retValue+$"<thead><tr/><th/>{headerstring}</tr></thead>";
-
-           
-
-            //for (int i=0; i < noOfRooms; i++)
-            //{
-
-            //}
-            ////await ;
-
             return retValue;
         }
+
+    
 
         public string PrintSchedule(Task<string> task)
         {
