@@ -76,7 +76,13 @@ namespace SIKONSystem.Controllers
         public async Task<IActionResult> Create()
         {
             IQueryable<string> retRoom = from R in _context.Lecture
+                orderby R.Room.Name
                 select R.Room.Name;
+
+            var displaylist = from R in _context.Lecture
+                select R.Room;
+
+            Display.RoomDisplayList = await displaylist.ToListAsync();
 
             Display.Rooms = new SelectList(await RoomQuery().Distinct().ToListAsync());
                 

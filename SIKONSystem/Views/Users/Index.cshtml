@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Opret Bruger</a>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
@@ -50,6 +50,7 @@
                 @Html.DisplayFor(modelItem => item.Zipcode)
             </td>
             <td>
+                
                 <a asp-action="Details" asp-route-id="@item.Id">Profil</a>
             </td>
         </tr>
