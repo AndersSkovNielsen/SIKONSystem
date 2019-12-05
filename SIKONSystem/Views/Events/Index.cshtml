@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
     <tr>
         <th>
@@ -57,6 +57,6 @@
     </tbody>
 </table>
 
-<table class="table">
-    @Html.Raw(Model.PrintSchedule(Model.GatherSchedule(2,4,Model.LextureDisplayList))) 
+<table class="table table-bordered">
+    @Html.Raw(Model.PrintSchedule(Model.GatherSchedule(3,4,Model.LextureDisplayList))) 
 </table>
