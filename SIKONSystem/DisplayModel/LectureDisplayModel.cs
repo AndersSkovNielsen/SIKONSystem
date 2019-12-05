@@ -38,7 +38,7 @@ namespace SIKONSystem.DisplayModel
             string headerstring ="";
            for (int i = 0; i < noOfRooms; i++)
             {
-                headerstring = $"{headerstring}" + $"<th>| {RoomDisplayList[i].Name} |</th>";
+                headerstring = $"{headerstring}" + $"<th>{RoomDisplayList[i].Name}</th>";
             }
             
             List<string> retlist= new List<string>();
