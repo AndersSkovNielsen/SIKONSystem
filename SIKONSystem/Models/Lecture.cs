@@ -77,7 +77,7 @@ namespace SIKONSystem.Models
 
         public ICollection<Booking> Bookings { get; set; }
 
-        public ICollection<WaitList> WaitList { get; set; }
+        public Queue<WaitList> WaitList { get; set; }
 
         //Constructor
         public Lecture()

@@ -80,7 +80,7 @@ namespace SIKONSystem.DisplayModel
                                 if (LextureDisplayList[iRoom - 1].Room.Name == RoomDisplayList[iRoom - 1].Name)
                                 {
                                     //indsæt lecture i tabellen
-                                    lineString = lineString + $"<td>{LextureDisplayList[iRoom - 1].Name}</td>";
+                                    lineString = lineString + $"<td>{LextureDisplayList[iRoom - 1].Title}</td>";
                                 }
                                 else
                                 {

@@ -42,7 +42,7 @@ namespace SIKONSystem.Controllers
             }
 
             var room = await _context.Room
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.RoomId == id);
             if (room == null)
             {
                 return NotFound();
@@ -96,7 +96,7 @@ namespace SIKONSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Capacity,UserId,FirstName")] Room room)
         {
-            if (id != room.Id)
+            if (id != room.RoomId)
             {
                 return NotFound();
             }
@@ -110,7 +110,7 @@ namespace SIKONSystem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.Id))
+                    if (!RoomExists(room.RoomId))
                     {
                         return NotFound();
                     }
@@ -133,7 +133,7 @@ namespace SIKONSystem.Controllers
             }
 
             var room = await _context.Room
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.RoomId == id);
             if (room == null)
             {
                 return NotFound();
@@ -155,7 +155,7 @@ namespace SIKONSystem.Controllers
 
         private bool RoomExists(int id)
         {
-            return _context.Room.Any(e => e.Id == id);
+            return _context.Room.Any(e => e.RoomId == id);
         }
     }
 }

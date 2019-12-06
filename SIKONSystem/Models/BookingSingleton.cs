@@ -23,43 +23,43 @@ namespace SIKONSystem.Models
 
        
 
-        public bool Partake(Lecture L, User U)
-        {
-            if (L.Partakers.Count < L.Room.Capacity)
-            {
-                return Attend(U, L);
-            }
-            else
-            {
-                L.WaitingList.Enqueue(U);
-                return false;
-            }
+        //public bool Partake(Lecture L, User U)
+        //{
+        //    if (L.Bookings.Count < L.Room.Capacity)
+        //    {
+        //        return Attend(U, L);
+        //    }
+        //    else
+        //    {
+        //        L.WaitList.Enqueue(U);
+        //        return false;
+        //    }
 
-        }
+        //}
 
-        public bool Cancel(Lecture L, User U)
-        {
-            bool returnVal;
-            if (L.Partakers.Contains(U))
-            {
-                L.Partakers.Remove(U);
+        //public bool Cancel(Lecture L, User U)
+        //{
+        //    bool returnVal;
+        //    if (L.Bookings.Contains(U.UserId))
+        //    {
+        //        L.Bookings.Remove(U);
 
-                if (L.WaitingList.Peek() != null)
-                {
-                    returnVal = Attend(L.WaitingList.Dequeue(), L);
-                }
-                else returnVal = false;
-            }
-            else throw  new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
-            return returnVal;
-        }
+        //        if (L.WaitList.Peek() != null)
+        //        {
+        //            returnVal = Attend(L.WaitList.Dequeue(), L);
+        //        }
+        //        else returnVal = false;
+        //    }
+        //    else throw  new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
+        //    return returnVal;
+        //}
 
-        private bool Attend(User U, Lecture L)
-        {
-            L.Partakers.Add(U);
-            //U.Agenda.Lectures.Add(L);
-            return true;
-        }
+        //private bool Attend(User U, Lecture L)
+        //{
+        //    L.Bookings.Add(U.Booking);
+        //    //U.Agenda.Lectures.Add(L);
+        //    return true;
+        //}
 
         private BookingSingleton()
         {

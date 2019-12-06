@@ -15,5 +15,17 @@ namespace SIKONSystem.Models
         //Navigation Properties
         public User User { get; set; }
         public Lecture Lecture { get; set; }
+
+        //Constructor
+        public Booking()
+        {
+            
+        }
+
+        public Booking(int userId, int lectureId)
+        {
+            UserId = userId;
+            LectureId = lectureId;
+        }
     }
 }

@@ -53,5 +53,44 @@ namespace SIKONSystem.Models
         {
 
         }
+
+        //Methods
+        //public bool Partake(Lecture L)
+        //{
+        //    if (L.Bookings.Count < L.Room.Capacity)
+        //    {
+        //        return Attend(L);
+        //    }
+        //    else
+        //    {
+        //        new WaitList(this.UserId, L.LectureId);//Opdater
+        //        return false;
+        //    }
+
+        //}
+
+        //public bool Cancel(Lecture L)
+        //{
+        //    bool returnVal;
+        //    if (L.Bookings.Contains(this.UserId))}
+        //    {
+        //        L.Bookings.Remove(U);
+
+        //        if (L.WaitList.Peek() != null)
+        //        {
+        //            returnVal = Attend(L.WaitList.Dequeue(), L);
+        //        }
+        //        else returnVal = false;
+        //    }
+        //    else throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
+        //    return returnVal;
+        //}
+
+        //private bool Attend(Lecture L)
+        //{
+        //    L.Bookings.Add(new Booking(this.UserId, L.LectureId));
+        //    //U.Agenda.Lectures.Add(L);
+        //    return true;
+        //}
     }
 }
