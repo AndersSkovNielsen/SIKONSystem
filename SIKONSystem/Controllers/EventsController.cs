@@ -192,11 +192,11 @@ namespace SIKONSystem.Controllers
             return _context.Lecture.Any(e => e.LectureId == id);
         }
 
-        //public async Task<IActionResult>  Partake(int? id)
-        //{
-        //    BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
-        //    //return false;
-        //    return RedirectToAction("Index");
+        public async Task<IActionResult>  Partake(int? id)
+        {
+           // BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
+            //return false;
+            return RedirectToAction("Index");
 
         //}
     }

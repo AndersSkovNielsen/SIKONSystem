@@ -6,9 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SIKONSystem.Models
-{/// <summary>
-/// SikonUser class
-/// </summary>
+{
+    /// <summary>
+    /// SikonUser class
+    /// </summary>
     public class User
     {
         public int UserId { get; set; }
@@ -55,42 +56,50 @@ namespace SIKONSystem.Models
         }
 
         //Methods
-        //public bool Partake(Lecture L)
-        //{
-        //    if (L.Bookings.Count < L.Room.Capacity)
-        //    {
-        //        return Attend(L);
-        //    }
-        //    else
-        //    {
-        //        new WaitList(this.UserId, L.LectureId);//Opdater
-        //        return false;
-        //    }
+        public Booking Partake(Lecture L)
+        {
+            if (L.Bookings.Count < L.Room.Capacity)
+            {
+                return Attend(L,this);
+            }
+            else
+            {
+                new WaitList(this.UserId, L.LectureId); //Opdater
+                return null;
+            }
 
-        //}
+        }
 
-        //public bool Cancel(Lecture L)
-        //{
-        //    bool returnVal;
-        //    if (L.Bookings.Contains(this.UserId))}
-        //    {
-        //        L.Bookings.Remove(U);
+        public Booking Attend(Lecture L, User U)
+        {
+            return new Booking(U.UserId, L.LectureId);
+        }
 
-        //        if (L.WaitList.Peek() != null)
-        //        {
-        //            returnVal = Attend(L.WaitList.Dequeue(), L);
-        //        }
-        //        else returnVal = false;
-        //    }
-        //    else throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
-        //    return returnVal;
-        //}
+        public Booking Cancel(Lecture L)
+        {
+            Booking returnVal=null;
+            foreach (Booking booking in L.Bookings)
+            {
+                if (booking.UserId==this.UserId)
+                {
+                    L.Bookings.Remove(booking);
+                    if (L.WaitList.Count != 0)
+                    {
+                        returnVal = Attend(L, L.WaitList.Dequeue().User);
 
-        //private bool Attend(Lecture L)
-        //{
-        //    L.Bookings.Add(new Booking(this.UserId, L.LectureId));
-        //    //U.Agenda.Lectures.Add(L);
-        //    return true;
-        //}
+                    }
+                    else returnVal = null;
+                }
+                else
+                {
+                    returnVal = null;
+                    throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
+                }
+            }
+
+            return returnVal;
+        }
+
+
     }
 }
