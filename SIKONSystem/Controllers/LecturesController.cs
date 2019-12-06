@@ -10,22 +10,23 @@ using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
 {
-    public class UsersController : Controller
+    public class LecturesController : Controller
     {
         private readonly MvcDbContext _context;
 
-        public UsersController(MvcDbContext context)
+        public LecturesController(MvcDbContext context)
         {
             _context = context;
         }
 
-        // GET: Users
+        // GET: Lectures
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            var mvcDbContext = _context.Lecture.Include(l => l.Room);
+            return View(await mvcDbContext.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Lectures/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
+            var lecture = await _context.Lecture
+                .Include(l => l.Room)
+                .FirstOrDefaultAsync(m => m.LectureId == id);
+            if (lecture == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(lecture);
         }
 
-        // GET: Users/Create
+        // GET: Lectures/Create
         public IActionResult Create()
         {
+            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Lectures/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,FirstName,LastName,Email,Address,Telephone,Zipcode,AddAutismInfo")] User user)
+        public async Task<IActionResult> Create([Bind("LectureId,RoomId,Title,StartTime,Speaker,Category,Description,TimeFrame,Spaces")] Lecture lecture)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
+                _context.Add(lecture);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
+            return View(lecture);
         }
 
-        // GET: Users/Edit/5
+        // GET: Lectures/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var lecture = await _context.Lecture.FindAsync(id);
+            if (lecture == null)
             {
                 return NotFound();
             }
-            return View(user);
+            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
+            return View(lecture);
         }
 
-        // POST: Users/Edit/5
+        // POST: Lectures/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,LastName,Email,Address,Telephone,Zipcode,AddAutismInfo")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("LectureId,RoomId,Title,StartTime,Speaker,Category,Description,TimeFrame,Spaces")] Lecture lecture)
         {
-            if (id != user.UserId)
+            if (id != lecture.LectureId)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace SIKONSystem.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(lecture);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.UserId))
+                    if (!LectureExists(lecture.LectureId))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace SIKONSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
+            return View(lecture);
         }
 
-        // GET: Users/Delete/5
+        // GET: Lectures/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +130,31 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
+            var lecture = await _context.Lecture
+                .Include(l => l.Room)
+                .FirstOrDefaultAsync(m => m.LectureId == id);
+            if (lecture == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(lecture);
         }
 
-        // POST: Users/Delete/5
+        // POST: Lectures/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            _context.User.Remove(user);
+            var lecture = await _context.Lecture.FindAsync(id);
+            _context.Lecture.Remove(lecture);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool LectureExists(int id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.Lecture.Any(e => e.LectureId == id);
         }
     }
 }

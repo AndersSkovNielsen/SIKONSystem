@@ -10,11 +10,11 @@ using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
 {
-    public class UsersController : Controller
+    public class UsersOldController : Controller
     {
         private readonly MvcDbContext _context;
 
-        public UsersController(MvcDbContext context)
+        public UsersOldController(MvcDbContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,FirstName,LastName,Email,Address,Telephone,Zipcode,AddAutismInfo")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,Telephone,Zipcode,FirstName,Email,Address")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,LastName,Email,Address,Telephone,Zipcode,AddAutismInfo")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Telephone,Zipcode,FirstName,Email,Address")] User user)
         {
             if (id != user.UserId)
             {

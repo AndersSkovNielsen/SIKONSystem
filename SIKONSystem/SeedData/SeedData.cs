@@ -13,9 +13,9 @@ namespace SIKONSystem.SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new MvcUserContext(
+            using (var context = new MvcDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<MvcUserContext>>()))
+                    DbContextOptions<MvcDbContext>>()))
             {
                 // Look for any movies.
                 if (context.User.Any())

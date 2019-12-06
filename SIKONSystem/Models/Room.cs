@@ -10,7 +10,6 @@ namespace SIKONSystem.Models
     public class Room
     {
         public int RoomId { get; set; }
-        public int LectureId { get; set; }
 
         private string _name;
         [Required]
@@ -32,7 +31,7 @@ namespace SIKONSystem.Models
 
         //Navigation Properties
 
-        public Lecture Lecture { get; set; }
+        public ICollection<Lecture> Lectures { get; set; }
 
         //Constructor
         public Room(int capacity, string name)

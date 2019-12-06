@@ -15,12 +15,12 @@ namespace SIKONSystem.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly MVCLectureContext _context;
+        private readonly MvcDbContext _context;
         private LectureDisplayModel Display = new LectureDisplayModel();
 
 
 
-        public EventsController(MVCLectureContext context)
+        public EventsController(MvcDbContext context)
         {
             _context = context;
         }
@@ -192,12 +192,12 @@ namespace SIKONSystem.Controllers
             return _context.Lecture.Any(e => e.LectureId == id);
         }
 
-        public async Task<IActionResult>  Partake(int? id)
-        {
-            BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
-            //return false;
-            return RedirectToAction("Index");
+        //public async Task<IActionResult>  Partake(int? id)
+        //{
+        //    BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
+        //    //return false;
+        //    return RedirectToAction("Index");
 
-        }
+        //}
     }
 }

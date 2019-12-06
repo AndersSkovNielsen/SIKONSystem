@@ -28,15 +28,14 @@ namespace SIKONSystem
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<MvcUserContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
+            services.AddDbContext<MvcDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("MvcDbContext")));
 
-            services.AddDbContext<MVCLectureContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
+            //services.AddDbContext<MVCLectureContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
             
-            services.AddDbContext<MvcRoomContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
-
+            //services.AddDbContext<MvcRoomContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("MvcUserContext")));
 
             services.Configure<IdentityOptions>(options =>
             

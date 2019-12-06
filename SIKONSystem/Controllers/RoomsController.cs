@@ -12,19 +12,11 @@ namespace SIKONSystem.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly MvcRoomContext _context;
+        private readonly MvcDbContext _context;
 
-        public RoomsController(MvcRoomContext context)
+        public RoomsController(MvcDbContext context)
         {
             _context = context;
-        }
-
-
-        //DisplayModel metode til at gøre Rooms-tabellen tilgængelig  for Lecture
-
-        public async Task<List<Room>> ToDisplayModel()
-        {
-            return await _context.Room.ToListAsync();
         }
 
         // GET: Rooms
@@ -62,7 +54,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Capacity,UserId,FirstName")] Room room)
+        public async Task<IActionResult> Create([Bind("RoomId,Name,Capacity")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +86,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Capacity,UserId,FirstName")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("RoomId,Name,Capacity")] Room room)
         {
             if (id != room.RoomId)
             {

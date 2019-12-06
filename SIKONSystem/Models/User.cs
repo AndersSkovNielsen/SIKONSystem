@@ -26,8 +26,8 @@ namespace SIKONSystem.Models
         [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "Email skal være gyldig.")]
-        [MinLength(6, ErrorMessage = "Email kan ikke være mindre end 6 karakterer.")]
+        //[EmailAddress(ErrorMessage = "Email skal være gyldig.")]
+        //[MinLength(6, ErrorMessage = "Email kan ikke være mindre end 6 karakterer.")]
         public string Email { get; set; }
 
         [Display(Name = "Adresse")]
@@ -46,7 +46,7 @@ namespace SIKONSystem.Models
 
         //Navigation Properties
         public ICollection<Booking> Booking { get; set; }
-        public ICollection<WaitList> WaitList { get; set; }
+        public Queue<WaitList> WaitList { get; set; }
 
         //Constructor
         public User()
