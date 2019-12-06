@@ -23,7 +23,7 @@ namespace SIKONSystem.Migrations.MVCLecture
 
             modelBuilder.Entity("SIKONSystem.Models.Lecture", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -31,7 +31,7 @@ namespace SIKONSystem.Migrations.MVCLecture
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RoomId")
@@ -49,7 +49,7 @@ namespace SIKONSystem.Migrations.MVCLecture
                     b.Property<int>("TimeFrame")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("RoomId");
 
@@ -58,7 +58,7 @@ namespace SIKONSystem.Migrations.MVCLecture
 
             modelBuilder.Entity("SIKONSystem.Models.Room", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -66,17 +66,17 @@ namespace SIKONSystem.Migrations.MVCLecture
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Room");
                 });
 
             modelBuilder.Entity("SIKONSystem.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -94,7 +94,7 @@ namespace SIKONSystem.Migrations.MVCLecture
                     b.Property<int?>("LectureId1")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telephone")
@@ -103,7 +103,7 @@ namespace SIKONSystem.Migrations.MVCLecture
                     b.Property<string>("Zipcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("LectureId");
 

@@ -25,8 +25,10 @@ namespace SIKONSystem.Controllers
             _context = context;
         }
 
-        public IQueryable<string> RoomQuery() {  IQueryable<string> retRoom = from R in _context.Lecture
-            select R.Room.Name;
+        public IQueryable<string> RoomQuery() 
+        {  
+            IQueryable<string> retRoom = from R in _context.Lecture
+            select R.Room.Name; 
             return retRoom;
         }
 
@@ -63,7 +65,7 @@ namespace SIKONSystem.Controllers
             }
 
             var lecture = await _context.Lecture
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.LectureId == id);
             if (lecture == null)
             {
                 return NotFound();
@@ -86,7 +88,7 @@ namespace SIKONSystem.Controllers
 
             Display.Rooms = new SelectList(await RoomQuery().Distinct().ToListAsync());
                 
-            return View(Display);
+            return View(/*Display*/);
         }
 
         // POST: Events/Create
@@ -94,7 +96,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,TimeFrame,StartTime,Spaces,Description,Speaker")] Lecture lecture)
+        public async Task<IActionResult> Create([Bind("UserId,FirstName,TimeFrame,Description,Speaker")] Lecture lecture)
         {
             if (ModelState.IsValid)
             {
@@ -126,9 +128,9 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TimeFrame,StartTime,Spaces,Description,Speaker")] Lecture lecture)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,TimeFrame,StartTime,Spaces,Description,Speaker")] Lecture lecture)
         {
-            if (id != lecture.Id)
+            if (id != lecture.LectureId)
             {
                 return NotFound();
             }
@@ -142,7 +144,7 @@ namespace SIKONSystem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LectureExists(lecture.Id))
+                    if (!LectureExists(lecture.LectureId))
                     {
                         return NotFound();
                     }
@@ -165,7 +167,7 @@ namespace SIKONSystem.Controllers
             }
 
             var lecture = await _context.Lecture
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.LectureId == id);
             if (lecture == null)
             {
                 return NotFound();
@@ -187,7 +189,7 @@ namespace SIKONSystem.Controllers
 
         private bool LectureExists(int id)
         {
-            return _context.Lecture.Any(e => e.Id == id);
+            return _context.Lecture.Any(e => e.LectureId == id);
         }
 
         public async Task<IActionResult>  Partake(int? id)

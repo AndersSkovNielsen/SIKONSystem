@@ -1,4 +1,4 @@
-﻿@model SIKONSystem.DisplayModel.LectureDisplayModel
+﻿@model SIKONSystem.Models.Lecture
 
 @{
     ViewData["Title"] = "Create";
@@ -14,45 +14,44 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="LectureDisplay.Name" class="control-label"></label>
-                <input asp-for="LectureDisplay.Name" class="form-control" />
-                <span asp-validation-for="LectureDisplay.Name" class="text-danger"></span>
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LectureDisplay.TimeFrame" class="control-label"></label>
-                <input asp-for="LectureDisplay.TimeFrame" class="form-control" />
-                <span asp-validation-for="LectureDisplay.TimeFrame" class="text-danger"></span>
+                <label asp-for="TimeFrame" class="control-label"></label>
+                <input asp-for="TimeFrame" class="form-control" />
+                <span asp-validation-for="TimeFrame" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LectureDisplay.StartTime" class="control-label"></label>
-                <input asp-for="LectureDisplay.StartTime" class="form-control" />
-                <span asp-validation-for="LectureDisplay.StartTime" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>*@
 
             <div>
-                <label>Lokale</label>
-                <select asp-for="RoomName" asp-items="Model.Rooms"></select>
-                <div class="dropdown">
-                    <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#home">Home</a>
-                        <a href="#about">About</a>
-                        <a href="#contact">Contact</a>
-                    </div>
+                <label asp-for="Room.Name" class="control-label"></label>
+                @*<select asp-for="Room.RoomId" asp-items="Model.Rooms"></select>*@
+            </div>
+            
+            @*<div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
                 </div>
-
-
-            </div>
+            </div>*@
 
             <div class="form-group">
-                <label asp-for="LectureDisplay.Description" class="control-label"></label>
-                <input asp-for="LectureDisplay.Description" class="form-control" />
-                <span asp-validation-for="LectureDisplay.Description" class="text-danger"></span>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LectureDisplay.Speaker" class="control-label"></label>
-                <input asp-for="LectureDisplay.Speaker" class="form-control" />
-                <span asp-validation-for="LectureDisplay.Speaker" class="text-danger"></span>
+                <label asp-for="Speaker" class="control-label"></label>
+                <input asp-for="Speaker" class="form-control" />
+                <span asp-validation-for="Speaker" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

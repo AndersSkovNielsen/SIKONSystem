@@ -16,7 +16,7 @@ namespace SIKONSystem.DisplayModel
     {
          //private List<Room> makeRequest() {return   }
          public List<Lecture> LextureDisplayList { get; set; }
-        public Lecture LectureDisplay { get; set; }
+        public Lecture LectureDisplay { get; set; } = new Lecture();
         public List<User> UserDisplayList { get; set; }
         public List<Room> RoomDisplayList { get; set; }
         public SelectList Rooms { get /*{ return  ;}*/; set; }
@@ -60,8 +60,6 @@ namespace SIKONSystem.DisplayModel
         {
             return task.Result;
         }
-
-
 
     }
 }

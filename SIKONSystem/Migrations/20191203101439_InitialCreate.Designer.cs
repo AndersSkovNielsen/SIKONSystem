@@ -22,7 +22,7 @@ namespace SIKONSystem.Migrations
 
             modelBuilder.Entity("SIKONSystem.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -34,7 +34,7 @@ namespace SIKONSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telephone")
@@ -43,7 +43,7 @@ namespace SIKONSystem.Migrations
                     b.Property<string>("Zipcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("User");
                 });

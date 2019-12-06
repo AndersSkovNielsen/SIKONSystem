@@ -9,8 +9,20 @@ namespace SIKONSystem.Models
 {
     public class Room
     {
-        private int _capacity;
+        public int RoomId { get; set; }
+        public int LectureId { get; set; }
 
+        private string _name;
+        [Required]
+        [Display(Name = "Lokale")]
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        private int _capacity;
+        [Required]
         [Display(Name="Kapacitet")]
         public int Capacity
         {
@@ -18,31 +30,20 @@ namespace SIKONSystem.Models
             set { _capacity = value; }
         }
 
-        private int _id;
+        //Navigation Properties
 
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        public Lecture Lecture { get; set; }
 
-        private string _name;
-
-        [Display(Name="Lokale")]
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        
+        //Constructor
         public Room(int capacity, string name)
         {
             _capacity = capacity;
             _name = name;
         }
 
-
-        public Room() { }
+        public Room()
+        {
+            
+        }
     }
 }

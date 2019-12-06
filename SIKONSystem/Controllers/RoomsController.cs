@@ -62,7 +62,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Capacity,Id,Name")] Room room)
+        public async Task<IActionResult> Create([Bind("Capacity,UserId,FirstName")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Capacity,Id,Name")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Capacity,UserId,FirstName")] Room room)
         {
             if (id != room.Id)
             {

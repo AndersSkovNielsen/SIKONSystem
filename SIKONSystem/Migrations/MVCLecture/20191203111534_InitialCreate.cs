@@ -42,7 +42,7 @@ namespace SIKONSystem.Migrations.MVCLecture
                         name: "FK_Lecture_Room_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Room",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -67,13 +67,13 @@ namespace SIKONSystem.Migrations.MVCLecture
                         name: "FK_User_Lecture_LectureId",
                         column: x => x.LectureId,
                         principalTable: "Lecture",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_User_Lecture_LectureId1",
                         column: x => x.LectureId1,
                         principalTable: "Lecture",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 

@@ -26,7 +26,7 @@ namespace SIKONSystem.SeedData
                 context.User.AddRange(
                     new User
                     {
-                        Name = "James",
+                        FirstName = "James",
                         Email = "lol@me.dk",
                         Address = "Hopsavej 2",
                         Telephone = "10101010",
@@ -35,7 +35,7 @@ namespace SIKONSystem.SeedData
 
                     new User
                     {
-                        Name = "Billy",
+                        FirstName = "Billy",
                         Email = "rofl@me.dk",
                         Address = "Wassupgade 7",
                         Telephone = "93057193",
@@ -44,7 +44,7 @@ namespace SIKONSystem.SeedData
 
                     new User
                     {
-                        Name = "Mike",
+                        FirstName = "Mike",
                         Email = "wtf@me.dk",
                         Address = "Nejstræde 10",
                         Telephone = "49571383",
@@ -53,7 +53,7 @@ namespace SIKONSystem.SeedData
 
                     new User
                     {
-                        Name = "Hans",
+                        FirstName = "Hans",
                         Email = "wat@me.dk",
                         Address = "Kanon Alle 5",
                         Telephone = "10859291",

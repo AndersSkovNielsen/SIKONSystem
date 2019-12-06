@@ -11,7 +11,28 @@ namespace SIKONSystem.Models
 /// </summary>
     public class User
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
+
+        [Required]
+        [Display(Name = "Navn")]
+        [DataType(DataType.Text)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Navn")]
+        [DataType(DataType.Text)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Email skal være gyldig.")]
+        [MinLength(6, ErrorMessage = "Email kan ikke være mindre end 6 karakterer.")]
+        public string Email { get; set; }
+
+        [Display(Name = "Adresse")]
+        [DataType(DataType.Text)]
+        public string Address { get; set; }
 
         [Display(Name = "Telefon Nr")]
         [DataType(DataType.PhoneNumber)]
@@ -21,40 +42,13 @@ namespace SIKONSystem.Models
         [DataType(DataType.PostalCode)]
         public string Zipcode { get; set; }
 
-        [Display(Name = "Navn")]
-        [DataType(DataType.Text)]
-        public string Name { get; set; }
-        [Required]
+        public bool AddAutismInfo { get; set; }
 
-        [Display(Name = "Email")]
-        [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "Email skal være gyldig.")]
-        [MinLength(6, ErrorMessage="Email kan ikke være mindre end 6 karakterer.")]
-        public string Email { get; set; }
+        //Navigation Properties
+        public ICollection<Booking> Booking { get; set; }
+        public ICollection<WaitList> WaitList { get; set; }
 
-        [Display(Name = "Adresse")]
-        [DataType(DataType.Text)]
-        public string Address { get; set; }
-
-        //[Required]
-        ////[CommonPasswords(ErrorMessage = "This password is too common")]
-        //[DataType(DataType.Password)]
-        //[ MinLength(8, ErrorMessage = "Password skal være over 8 karakterer.")]
-        //public string Password { get; set; }
-
-        //private Schedule _agenda;
-
-        //public Schedule Agenda
-        //{
-        //    get { return _agenda; }
-        //    set { _agenda = value; }
-        //}
-
-        //public User()
-        //{
-        //    _agenda = new Schedule();
-        //}
-
+        //Constructor
         public User()
         {
 

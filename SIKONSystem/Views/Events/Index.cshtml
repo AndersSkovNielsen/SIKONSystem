@@ -14,7 +14,7 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LextureDisplayList[0].Name)
+            @Html.DisplayNameFor(model => model.LextureDisplayList[0].Title)
             </th>
 
             <th>
@@ -35,7 +35,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
 
                 <td>
@@ -48,9 +48,9 @@
                     @Html.DisplayFor(modelItem => item.Spaces)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Rediger Oplæg</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Slet Oplæg</a>
+                    <a asp-action="Edit" asp-route-id="@item.LectureId">Rediger Oplæg</a> |
+                    <a asp-action="Details" asp-route-id="@item.LectureId">Detaljer</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LectureId">Slet Oplæg</a>
                 </td>
             </tr>
         }

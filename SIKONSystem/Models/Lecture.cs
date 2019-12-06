@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,14 +10,43 @@ namespace SIKONSystem.Models
 {
     public class Lecture
     {
-        public int Id { get; set; }
-        private string _name;
+        public int LectureId { get; set; }
+        public int RoomId { get; set; }
 
+        private string _title;
+        
+        [Required]
         [Display(Name= "Titel")]
-        public string Name
+        public string Title
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return _title; }
+            set { _title = value; }
+        }
+
+        private DateTime _startTime;
+        [Display(Name = "Starttidspunkt")]
+        public DateTime StartTime
+        {
+            get { return _startTime; }
+            set { _startTime = value; }
+        }
+
+        private string _speaker;
+        [Display(Name = "Oplægsholder:")]
+        public string Speaker
+        {
+            get { return _speaker; }
+            set { _speaker = value; }
+        }
+
+        public LectureCategory Category { get; set; }
+
+        private string _description;
+        [Display(Name = "Beskrivelse:")]
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
         }
 
         private int _timeFrame;
@@ -27,28 +57,16 @@ namespace SIKONSystem.Models
             set { _timeFrame = value; }
         }
 
-        private DateTime _startTime;
-        [Display(Name="Starttidspunkt")]
-        public DateTime StartTime
-        {
-            get { return _startTime; }
-            set { _startTime = value; }
-        }
-
-        //enum _categoryColour
-        //{
-
-        //}
-        private int spaces;
+        private int _spaces;
 
         [Display(Name="Antal Pladser")]
         public int Spaces
         {
-            get { return spaces; }
-            set { spaces = Room.Capacity-_partakers.Count; }
+            get { return _spaces; }
+            set { _spaces = Room.Capacity-Bookings.Count; }
         }
 
-
+        //Navigation Properties
         private Room _room;
 
         public Room Room
@@ -57,50 +75,11 @@ namespace SIKONSystem.Models
             set { _room = value; }
         }
 
-        private Collection<User> _partakers;
-        
-        public Collection<User> Partakers
-        {
-            get { return _partakers; }
-            set { _partakers = value; }
-        }
+        public ICollection<Booking> Bookings { get; set; }
 
+        public ICollection<WaitList> WaitList { get; set; }
 
-        private string _description;
-        [Display(Name="Beskrivelse:")]
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-
-
-        private string _speaker;
-        [Display(Name="Oplægsholder:")]
-        public string Speaker
-        {
-            get { return _speaker; }
-            set { _speaker = value; }
-        }
-
-        private Queue<User> _waitingList;
-
-        public Queue<User> WaitingList
-        {
-            get { return _waitingList; }
-            set { _waitingList = value; }
-        }
-
-        public Lecture(string name, int timeFrame, Room room, Collection<User> partakers, string speaker, Queue<User> waitingList)
-        {
-            _name = name;
-            _timeFrame = timeFrame;
-            _room = room;
-            _partakers = partakers;
-            _speaker = speaker;
-            _waitingList = waitingList;
-        }
-
+        //Constructor
         public Lecture()
         {
             
