@@ -194,7 +194,7 @@ namespace SIKONSystem.Controllers
 
         public async Task<IActionResult>  Partake(int? id)
         {
-            BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
+           // BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
             //return false;
             return RedirectToAction("Index");
 

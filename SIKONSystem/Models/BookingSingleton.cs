@@ -21,7 +21,7 @@ namespace SIKONSystem.Models
 
         }
 
-       
+
 
         //public bool Partake(Lecture L, User U)
         //{
@@ -50,7 +50,7 @@ namespace SIKONSystem.Models
         //        }
         //        else returnVal = false;
         //    }
-        //    else throw  new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
+        //    else throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
         //    return returnVal;
         //}
 
