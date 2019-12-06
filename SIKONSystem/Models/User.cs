@@ -47,7 +47,7 @@ namespace SIKONSystem.Models
 
         //Navigation Properties
         public ICollection<Booking> Booking { get; set; }
-        public ICollection<WaitList> WaitList { get; set; }
+        public Queue<WaitList> WaitList { get; set; }
 
         //Constructor
         public User()
