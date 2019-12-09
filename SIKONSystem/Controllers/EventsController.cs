@@ -16,19 +16,20 @@ namespace SIKONSystem.Controllers
     public class EventsController : Controller
     {
         private readonly MvcDbContext _context;
-        private LectureDisplayModel Display = new LectureDisplayModel();
+        private LectureDisplayModel Display;
 
 
 
         public EventsController(MvcDbContext context)
         {
             _context = context;
+            Display=new LectureDisplayModel(context);
         }
 
-        public IQueryable<string> RoomQuery() 
-        {  
+        public IQueryable<string> RoomQuery()
+        {
             IQueryable<string> retRoom = from R in _context.Lecture
-            select R.Room.Name; 
+                select R.Room.Name;
             return retRoom;
         }
 
@@ -36,7 +37,7 @@ namespace SIKONSystem.Controllers
         {
             var rooms = from R in _context.Lecture
                 select R.Room;
-            
+
             return rooms;
 
         }
@@ -51,7 +52,7 @@ namespace SIKONSystem.Controllers
             var displaylist = from L in _context.Lecture
                 select L;
 
-            Display.LextureDisplayList = await displaylist.ToListAsync();
+            Display.LectureDisplayList = await displaylist.ToListAsync();
             BookingSingleton.Instance();
             return View(Display);
         }
@@ -87,8 +88,8 @@ namespace SIKONSystem.Controllers
             Display.RoomDisplayList = await displaylist.ToListAsync();
 
             Display.Rooms = new SelectList(await RoomQuery().Distinct().ToListAsync());
-                
-            return View(/*Display*/);
+
+            return View( /*Display*/);
         }
 
         // POST: Events/Create
@@ -96,7 +97,8 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,FirstName,TimeFrame,Description,Speaker")] Lecture lecture)
+        public async Task<IActionResult> Create([Bind("UserId,FirstName,TimeFrame,Description,Speaker")]
+            Lecture lecture)
         {
             if (ModelState.IsValid)
             {
@@ -104,6 +106,7 @@ namespace SIKONSystem.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(lecture);
         }
 
@@ -120,6 +123,7 @@ namespace SIKONSystem.Controllers
             {
                 return NotFound();
             }
+
             return View(lecture);
         }
 
@@ -128,7 +132,9 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,TimeFrame,StartTime,Spaces,Description,Speaker")] Lecture lecture)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("UserId,FirstName,TimeFrame,StartTime,Spaces,Description,Speaker")]
+            Lecture lecture)
         {
             if (id != lecture.LectureId)
             {
@@ -153,8 +159,10 @@ namespace SIKONSystem.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(lecture);
         }
 
@@ -192,12 +200,13 @@ namespace SIKONSystem.Controllers
             return _context.Lecture.Any(e => e.LectureId == id);
         }
 
-        public async Task<IActionResult>  Partake(int? id)
+        public async Task<IActionResult> Partake(int? id)
         {
-           // BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
+            // BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
             //return false;
             return RedirectToAction("Index");
 
-        //}
+            //}
+        }
     }
 }

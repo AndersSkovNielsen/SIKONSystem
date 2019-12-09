@@ -12,9 +12,9 @@
 </p>
 <table class="table table-bordered">
     <thead>
-    <tr>
+    @*<tr>
         <th>
-            @Html.DisplayNameFor(model => model.LextureDisplayList[0].Title)
+            @Html.DisplayNameFor(model => model.LectureDisplayList[0].Title)
             </th>
 
             <th>
@@ -28,10 +28,10 @@
                 @Html.DisplayNameFor(model => model.LextureDisplayList[0].Spaces)
             </th>
             <th></th>
-        </tr>
+        </tr>*@
     </thead>
     <tbody>
-        @foreach (var item in Model.LextureDisplayList)
+        @*@foreach (var item in Model.LextureDisplayList)
         {
             <tr>
                 <td>
@@ -53,10 +53,10 @@
                     <a asp-action="Delete" asp-route-id="@item.LectureId">Slet Oplæg</a>
                 </td>
             </tr>
-        }
+        }*@
     </tbody>
 </table>
 
-<table class="table table-bordered">
+@*<table class="table table-bordered">
     @Html.Raw(Model.PrintSchedule(Model.GatherSchedule(3,4,Model.LextureDisplayList))) 
-</table>
+</table>*@

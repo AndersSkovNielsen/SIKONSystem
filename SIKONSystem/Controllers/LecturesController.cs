@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SIKONSystem.Data;
+using SIKONSystem.DisplayModel;
 using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
@@ -13,20 +14,33 @@ namespace SIKONSystem.Controllers
     public class LecturesController : Controller
     {
         private readonly MvcDbContext _context;
+        private LectureDisplayModel Display;
 
         public LecturesController(MvcDbContext context)
         {
             _context = context;
+            Display = new LectureDisplayModel(context);
         }
 
         // GET: Lectures
         public async Task<IActionResult> Index()
         {
-            var mvcDbContext = _context.Lecture.Include(l => l.Room);
-            return View(await mvcDbContext.ToListAsync());
+            return View(GetHelper());
         }
 
-        // GET: Lectures/Details/5
+        //Get letcures helpermethod
+        public LectureDisplayModel GetHelper()
+        {
+            var mvcDbContext = _context.Room;
+            Display.RoomDisplayList = mvcDbContext.ToList();
+            var NewMvcDbContext = _context.Lecture;
+            Display.LectureDisplayList = NewMvcDbContext.ToList();
+            Display.NoOfRooms = Display.RoomDisplayList.Count;
+            return Display;
+        }
+    
+
+    // GET: Lectures/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
