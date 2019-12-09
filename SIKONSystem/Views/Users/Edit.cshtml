@@ -5,9 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div>
+    <a asp-action="Index">Tilbage til listen</a>
+</div>
 
-<h4>User</h4>
+<h1>Rediger</h1>
+
+<h4>@Html.DisplayFor(model => model.FirstName)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -55,8 +59,3 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
