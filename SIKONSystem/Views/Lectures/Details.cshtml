@@ -65,3 +65,12 @@
     <a asp-action="Edit" asp-route-id="@Model.LectureId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.LectureId">Edit</a>
+</div>
+
+<form asp-action="Partake">
+    <input type="hidden" asp-for="LectureId" />
+    <input type="submit" value="Tilmeld" class="btn btn-danger" />
+</form>

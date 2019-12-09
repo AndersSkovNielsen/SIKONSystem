@@ -10,23 +10,23 @@ using SIKONSystem.Models;
 
 namespace SIKONSystem.Controllers
 {
-    public class LecturesController : Controller
+    public class BookingsController : Controller
     {
         private readonly MvcDbContext _context;
 
-        public LecturesController(MvcDbContext context)
+        public BookingsController(MvcDbContext context)
         {
             _context = context;
         }
 
-        // GET: Lectures
+        // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var mvcDbContext = _context.Lecture.Include(l => l.Room);
+            var mvcDbContext = _context.Booking.Include(b => b.Lecture).Include(b => b.User);
             return View(await mvcDbContext.ToListAsync());
         }
 
-        // GET: Lectures/Details/5
+        // GET: Bookings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,45 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var lecture = await _context.Lecture
-                .Include(l => l.Room)
-                .FirstOrDefaultAsync(m => m.LectureId == id);
-            if (lecture == null)
+            var booking = await _context.Booking
+                .Include(b => b.Lecture)
+                .Include(b => b.User)
+                .FirstOrDefaultAsync(m => m.BookingId == id);
+            if (booking == null)
             {
                 return NotFound();
             }
 
-            return View(lecture);
+            return View(booking);
         }
 
-        // GET: Lectures/Create
+        // GET: Bookings/Create
         public IActionResult Create()
         {
-            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name");
+            ViewData["LectureId"] = new SelectList(_context.Lecture, "LectureId", "Title");
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email");
             return View();
         }
 
-        // POST: Lectures/Create
+        // POST: Bookings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LectureId,RoomId,Title,StartTime,Speaker,Category,Description,TimeFrame,Spaces")] Lecture lecture)
+        public async Task<IActionResult> Create([Bind("BookingId,UserId,LectureId")] Booking booking)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lecture);
+                _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
-            return View(lecture);
+            ViewData["LectureId"] = new SelectList(_context.Lecture, "LectureId", "Title", booking.LectureId);
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", booking.UserId);
+            return View(booking);
         }
 
-        // GET: Lectures/Edit/5
+        // GET: Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +80,24 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var lecture = await _context.Lecture.FindAsync(id);
-            if (lecture == null)
+            var booking = await _context.Booking.FindAsync(id);
+            if (booking == null)
             {
                 return NotFound();
             }
-            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
-            return View(lecture);
+            ViewData["LectureId"] = new SelectList(_context.Lecture, "LectureId", "Title", booking.LectureId);
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", booking.UserId);
+            return View(booking);
         }
 
-        // POST: Lectures/Edit/5
+        // POST: Bookings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LectureId,RoomId,Title,StartTime,Speaker,Category,Description,TimeFrame,Spaces")] Lecture lecture)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingId,UserId,LectureId")] Booking booking)
         {
-            if (id != lecture.LectureId)
+            if (id != booking.BookingId)
             {
                 return NotFound();
             }
@@ -102,12 +106,12 @@ namespace SIKONSystem.Controllers
             {
                 try
                 {
-                    _context.Update(lecture);
+                    _context.Update(booking);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LectureExists(lecture.LectureId))
+                    if (!BookingExists(booking.BookingId))
                     {
                         return NotFound();
                     }
@@ -118,11 +122,12 @@ namespace SIKONSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
-            return View(lecture);
+            ViewData["LectureId"] = new SelectList(_context.Lecture, "LectureId", "Title", booking.LectureId);
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", booking.UserId);
+            return View(booking);
         }
 
-        // GET: Lectures/Delete/5
+        // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,41 +135,32 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var lecture = await _context.Lecture
-                .Include(l => l.Room)
-                .FirstOrDefaultAsync(m => m.LectureId == id);
-            if (lecture == null)
+            var booking = await _context.Booking
+                .Include(b => b.Lecture)
+                .Include(b => b.User)
+                .FirstOrDefaultAsync(m => m.BookingId == id);
+            if (booking == null)
             {
                 return NotFound();
             }
 
-            return View(lecture);
+            return View(booking);
         }
 
-        // POST: Lectures/Delete/5
+        // POST: Bookings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lecture = await _context.Lecture.FindAsync(id);
-            _context.Lecture.Remove(lecture);
+            var booking = await _context.Booking.FindAsync(id);
+            _context.Booking.Remove(booking);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LectureExists(int id)
+        private bool BookingExists(int id)
         {
-            return _context.Lecture.Any(e => e.LectureId == id);
-        }
-
-        public async Task<IActionResult> Partake(int? id)
-        {
-            
-            // BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
-            //return false;
-            return RedirectToAction("Index");
-
-            //}
+            return _context.Booking.Any(e => e.BookingId == id);
         }
     }
 }
