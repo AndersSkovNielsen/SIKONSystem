@@ -15,12 +15,12 @@ namespace SIKONSystem.Models
         public int UserId { get; set; }
 
         [Required]
-        [Display(Name = "Navn")]
+        [Display(Name = "Fornavn")]
         [DataType(DataType.Text)]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Navn")]
+        [Display(Name = "Efternavn")]
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
