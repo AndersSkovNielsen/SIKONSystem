@@ -54,10 +54,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.UserId">Rediger</a>
+    <a asp-action="Edit" asp-route-id="@Model.UserId">Rediger</a> |
+    <a asp-action="Delete" asp-route-id="@Model.UserId">Slet</a>
 </div>
 
-<form asp-action="Delete">
+@*<form asp-action="Delete">
     <input type="hidden" asp-for="UserId" />
     <input type="submit" value="Slet" class="btn btn-danger" onclick="return confirm('Du er ved at slette alt bruger data for @Model.FirstName.\n\nTryk OK for at fortsætte. Tryk Cancel for at fortryde.')" />
-</form>
+</form>*@
