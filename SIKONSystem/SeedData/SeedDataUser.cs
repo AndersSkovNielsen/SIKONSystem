@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SIKONSystem.SeedData
 {
-    public static class SeedData
+    public static class SeedDataUser
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
