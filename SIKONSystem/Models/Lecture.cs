@@ -63,7 +63,7 @@ namespace SIKONSystem.Models
         public int Spaces
         {
             get { return _spaces; }
-            set { _spaces = Room.Capacity-Bookings.Count; }
+            set { _spaces = Room.Capacity-(Bookings.Count-1); }
         }
 
         //Navigation Properties
@@ -82,6 +82,8 @@ namespace SIKONSystem.Models
         //Constructor
         public Lecture()
         {
+            Bookings=new List<Booking>();
+            
             
         }
     }

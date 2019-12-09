@@ -99,12 +99,12 @@
                 <thead><tr><th></th>@Html.Raw(Model.Graphic)</tr></thead>
         }
 
-        else 
+        else
         {string linestring = "";
             //noOfRooms har +1 fordi jeg bruger index 0 tid horisontalt til tidsangivelse
             for (int iRoom = 0; iRoom < Model.NoOfRooms+1; iRoom++)
             {
-
+                int fieldWritten = 0;
                 if (iRoom == 0)
                 {
                     //skriv tidsblok interval på første kolonne af hver række
@@ -114,25 +114,34 @@
                 {        //errorprevetion room existerer ikke
                     //iRoom -1 er igen fordi index 0 bruges til tidsangivelse
                     foreach (var lecture in Model.LectureDisplayList)
-                    {
-                        //tjek rigtigt rum
-                        if (lecture.Room.Name == Model.RoomDisplayList[iRoom - 1].Name)
-                        {//tjek om tidspunkt passer
-                            if (true)
-                            {
+                    {   //Tjek om Lecture allerede er tilføjet i tabellen
+                        if (linestring.Contains(lecture.Title))
+                        { }
 
-                                //indsæt lecture i tabellen
-                                linestring = linestring + $"<td>{Model.LectureDisplayList[iRoom - 1].Title}</td>";
-                            }
-
-                        }
                         else
                         {
-                            linestring = linestring + "<td></td>";
+                            //tjek rigtigt rum
+                            if (lecture.Room.Name == Model.RoomDisplayList[iRoom - 1].Name)
+                            {
+                                //tjek om tidspunkt passer
+                                if (true)
+                                {
+
+                                    //indsæt lecture i tabellen
+                                    fieldWritten = 1;
+                                    linestring = linestring + $"<td>{lecture.Title}</td>";
+
+                                    break;
+                                }
+                            }
                         }
+                    }
+                    if (fieldWritten == 0)
+                    {
+                        linestring = linestring + "<td></td>";
+                        fieldWritten = 1;
 
                     }
-
                 }
             }
             <tbody><tr>
