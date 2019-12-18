@@ -10,7 +10,7 @@ using SIKONSystem.Data;
 namespace SIKONSystem.Migrations
 {
     [DbContext(typeof(MvcDbContext))]
-    [Migration("20191206103002_InitialCreate")]
+    [Migration("20191218090401_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
