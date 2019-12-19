@@ -23,6 +23,7 @@ namespace SIKONSystem.DisplayModel
         public Lecture LectureDisplay { get; set; } = new Lecture();
         public List<User> UserDisplayList { get; set; }
         public List<Room> RoomDisplayList { get; set; }
+        public List<Category> CategoryDisplayList { get; set; }
         public SelectList Rooms { get /*{ return  ;}*/; set; }
         public string Graphic { get; set; }
         public int NoOfTimeBlocks { get; set; }

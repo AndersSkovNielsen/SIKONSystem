@@ -24,6 +24,8 @@ namespace SIKONSystem
                 {
                     SeedData.SeedDataUser.Initialize(services);
                     SeedData.SeedDataRoom.Initialize(services);
+                    SeedData.SeedDataLecture.Initialize(services);
+                    SeedData.SeedDataBooking.Initialize(services);
                 }
                 catch (Exception ex)
                 {

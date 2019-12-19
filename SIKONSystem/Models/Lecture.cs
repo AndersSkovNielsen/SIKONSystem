@@ -12,6 +12,7 @@ namespace SIKONSystem.Models
     {
         public int LectureId { get; set; }
         public int RoomId { get; set; }
+        public int CategoryId { get; set; }
 
         private string _title;
         
@@ -39,7 +40,7 @@ namespace SIKONSystem.Models
             set { _speaker = value; }
         }
 
-        public LectureCategory Category { get; set; }
+        //public LectureCategory Category { get; set; }
 
         private string _description;
         [Display(Name = "Beskrivelse:")]
@@ -63,7 +64,7 @@ namespace SIKONSystem.Models
         public int Spaces
         {
             get { return _spaces; }
-            set { _spaces = Room.Capacity-(Bookings.Count-1); }
+            set { _spaces = value; }
         }
 
         //Navigation Properties
@@ -75,6 +76,14 @@ namespace SIKONSystem.Models
             set { _room = value; }
         }
 
+        private Category _category;
+
+        public Category Category
+        {
+            get { return _category; }
+            set { _category = value; }
+        }
+
         public ICollection<Booking> Bookings { get; set; }
 
         public Queue<WaitList> WaitList { get; set; }
@@ -82,9 +91,8 @@ namespace SIKONSystem.Models
         //Constructor
         public Lecture()
         {
-            Bookings=new List<Booking>();
-            
-            
+            Bookings = new List<Booking>();
+            //Bookings = context.Booking.ToList().FindAll(x => x.Lecture.LectureId.Equals(context.Lecture))
         }
     }
 }
