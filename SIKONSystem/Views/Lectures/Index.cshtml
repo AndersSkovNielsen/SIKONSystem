@@ -100,22 +100,22 @@
         }
 
         else
-        {string linestring = "";
-            //noOfRooms har +1 fordi jeg bruger index 0 tid horisontalt til tidsangivelse
+        {//noOfRooms har +1 fordi jeg bruger index 0 tid horisontalt til tidsangivelse
             for (int iRoom = 0; iRoom < Model.NoOfRooms+1; iRoom++)
             {
                 int fieldWritten = 0;
                 if (iRoom == 0)
                 {
                     //skriv tidsblok interval på første kolonne af hver række
-                    linestring = $"<th>Blok {iTime}</th>";
+                    /*linestring*/
+                    Model.Graphic = $"<th>Blok {iTime}</th>";
                 }
                 else
                 {        //errorprevetion room existerer ikke
                     //iRoom -1 er igen fordi index 0 bruges til tidsangivelse
                     foreach (var lecture in Model.LectureDisplayList)
                     {   //Tjek om Lecture allerede er tilføjet i tabellen
-                        if (linestring.Contains(lecture.Title))
+                        if (/*linestring*/Model.Graphic.Contains(lecture.Title))
                         { }
 
                         else
@@ -123,29 +123,34 @@
                             //tjek rigtigt rum
                             if (lecture.Room.Name == Model.RoomDisplayList[iRoom - 1].Name)
                             {
-                                //tjek om tidspunkt passer
-                                if (true)
+                                //placeholder til tidsadskillelse 
+                                string blockStartTime=$"{iTime+7}";
+                                string mystr = lecture.StartTime.Hour.ToString();
+                                //tjek om tidspunkt passer (placeholder)
+                                if (lecture.StartTime.Hour.ToString()== blockStartTime)
                                 {
 
                                     //indsæt lecture i tabellen
                                     fieldWritten = 1;
-                                    linestring = linestring + $"<td>{lecture.Title}</td>";
+
+                                    Model.Graphic = Model.Graphic + $"<td>{lecture.Title}</td>";
 
                                     break;
                                 }
                             }
                         }
                     }
-                    if (fieldWritten == 0)
-                    {
-                        linestring = linestring + "<td></td>";
-                        fieldWritten = 1;
 
+                    //Tjek om feltet skal være tomt
+                    if (fieldWritten == 0)
+                    {//indsæt tomt felt i tabllen og hop derefter tilbage til iTime loopet
+                        Model.Graphic = Model.Graphic + "<td></td>";
+                        fieldWritten = 1;
                     }
                 }
             }
             <tbody><tr>
-               @Html.Raw(linestring) 
+               @Html.Raw(Model.Graphic) 
             </tr></tbody>
         }
     }

@@ -23,7 +23,7 @@ namespace SIKONSystem.Controllers
         }
 
         // GET: Lectures
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View(GetHelper());
         }
@@ -176,7 +176,7 @@ namespace SIKONSystem.Controllers
             
             // BookingSingleton.Instance().Partake(await _context.Lecture.FindAsync(id), new User());
             //return false;
-            return RedirectToAction("Index");
+             return RedirectToAction("Index");
 
             //}
         }

@@ -20,7 +20,7 @@ namespace SIKONSystem.DisplayModel
     {
         //private List<Room> makeRequest() {return   }
         public List<Lecture> LectureDisplayList { get; set; }
-        public Lecture LectureDisplay { get; set; } = new Lecture();
+        public Lecture LectureDisplay { get; set; } // = new Lecture();
         public List<User> UserDisplayList { get; set; }
         public List<Room> RoomDisplayList { get; set; }
         public SelectList Rooms { get /*{ return  ;}*/; set; }
@@ -60,7 +60,7 @@ namespace SIKONSystem.DisplayModel
 
         
 
-        ////hjælpemetode til at fremvise Enums description istedet for den rå ENUM
+        ////Hjælpemetode til at fremvise Enums description istedet for den rå ENUM
         //public static string GetTimeBlockDescription(Enum value)
         //{
         //    return ((DescriptionAttribute) Attribute.GetCustomAttribute(
@@ -69,9 +69,9 @@ namespace SIKONSystem.DisplayModel
         //               typeof(DescriptionAttribute)))?.Description ?? value.ToString();
         //}
 
-        public async Task GatherSchedule()
+        public void GatherSchedule()
         {
-            // Hvordan kan vi tilføje asyncronitet til denne metode?? -Frederik
+            
 
             //LectureDisplayList = await _context.Lecture.ToListAsync();
             //RoomDisplayList = await _context.Room.ToListAsync();
