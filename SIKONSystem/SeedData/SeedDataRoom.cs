@@ -18,7 +18,7 @@ namespace SIKONSystem.SeedData
                     DbContextOptions<MvcDbContext>>()))
             {
                 // Look for any movies.
-                if (context.User.Any())
+                if (context.Room.Any())
                 {
                     return;   // DB has been seeded
                 }

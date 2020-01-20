@@ -19,6 +19,7 @@ namespace SIKONSystem.Data
         public DbSet<Room> Room { get; set; }
         public DbSet<Booking> Booking { get; set; }
         public DbSet<WaitList> WaitList { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

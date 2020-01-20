@@ -35,6 +35,8 @@ namespace SIKONSystem.Controllers
             Display.RoomDisplayList = mvcDbContext.ToList();
             var NewMvcDbContext = _context.Lecture;
             Display.LectureDisplayList = NewMvcDbContext.ToList();
+            var mvcContext = _context;
+            Display.CategoryDisplayList = mvcContext.Category.ToList();
             Display.NoOfRooms = Display.RoomDisplayList.Count;
             return Display;
         }
@@ -63,6 +65,7 @@ namespace SIKONSystem.Controllers
         public IActionResult Create()
         {
             ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name");
             return View();
         }
 
@@ -71,8 +74,10 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LectureId,RoomId,Title,StartTime,Speaker,Category,Description,TimeFrame,Spaces")] Lecture lecture)
+        public async Task<IActionResult> Create([Bind("LectureId,RoomId,Title,StartTime,Speaker,CategoryId,Description,TimeFrame")] Lecture lecture)
         {
+            lecture.Spaces = SpacesCount(lecture);
+
             if (ModelState.IsValid)
             {
                 _context.Add(lecture);
@@ -80,7 +85,22 @@ namespace SIKONSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", lecture.CategoryId);
             return View(lecture);
+        }
+
+        private int SpacesCount(Lecture l)
+        {
+            int count = 0;
+            foreach (var booking in _context.Booking)
+            {
+                if (booking.LectureId == l.LectureId)
+                {
+                    count = count + 1;
+                }
+            }
+
+            return _context.Room.FindAsync(l.RoomId).Result.Capacity - count;
         }
 
         // GET: Lectures/Edit/5
@@ -97,6 +117,7 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
             ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", lecture.CategoryId);
             return View(lecture);
         }
 
@@ -105,12 +126,14 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LectureId,RoomId,Title,StartTime,Speaker,Category,Description,TimeFrame,Spaces")] Lecture lecture)
+        public async Task<IActionResult> Edit(int id, [Bind("LectureId,RoomId,Title,StartTime,Speaker,CategoryId,Description,TimeFrame")] Lecture lecture)
         {
             if (id != lecture.LectureId)
             {
                 return NotFound();
             }
+
+            lecture.Spaces = SpacesCount(lecture);
 
             if (ModelState.IsValid)
             {
@@ -133,6 +156,7 @@ namespace SIKONSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoomId"] = new SelectList(_context.Room, "RoomId", "Name", lecture.RoomId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", lecture.CategoryId);
             return View(lecture);
         }
 
