@@ -8,6 +8,7 @@ namespace SIKONSystem.Models
 {
     public class Category
     {
+        //Her er endnu en tilfældig kommentar, som kan slettes.
         public int CategoryId { get; set; }
 
         private string _name;
