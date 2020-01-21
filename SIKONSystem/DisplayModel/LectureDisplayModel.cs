@@ -18,6 +18,7 @@ namespace SIKONSystem.DisplayModel
 {
     public class LectureDisplayModel
     {
+        //Her er en tilfældig kommentar, som kan slettes.
         //private List<Room> makeRequest() {return   }
         public List<Lecture> LectureDisplayList { get; set; }
         public Lecture LectureDisplay { get; set; } // = new Lecture();
