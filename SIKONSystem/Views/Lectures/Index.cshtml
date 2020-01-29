@@ -87,7 +87,8 @@
 
 @* Tidsplan: med dynamisk rendering *@
 <table class="table table-bordered">
-    @*@Model.GatherSchedule()*@
+    
+    
     @for (int iTime = 0; iTime < Model.NoOfTimeBlocks+1; iTime++)
      {
         if (iTime == 0)
