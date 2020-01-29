@@ -28,7 +28,6 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="BookingId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Du er ved at slette alt data for denne booking.\n\nTryk OK for at fortsætte. Tryk Cancel for at fortryde.')" />
     </form>
 </div>
