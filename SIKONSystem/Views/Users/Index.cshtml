@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Opret Bruger</a>
 </p>
-<table class="table table-bordered">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -63,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.AddAutismInfo)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.UserId">Profil</a>
+                    <a asp-action="Details" asp-route-id="@item.UserId">Detaljer</a>
                 </td>
             </tr>
         }

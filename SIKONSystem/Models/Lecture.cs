@@ -11,7 +11,9 @@ namespace SIKONSystem.Models
     public class Lecture
     {
         public int LectureId { get; set; }
+        [Display(Name="Lokale")]
         public int RoomId { get; set; }
+        [Display(Name="Kategori")]
         public int CategoryId { get; set; }
 
         private string _title;
@@ -33,7 +35,7 @@ namespace SIKONSystem.Models
         }
 
         private string _speaker;
-        [Display(Name = "Oplægsholder:")]
+        [Display(Name = "Oplægsholder")]
         public string Speaker
         {
             get { return _speaker; }
@@ -43,7 +45,7 @@ namespace SIKONSystem.Models
         //public LectureCategory Category { get; set; }
 
         private string _description;
-        [Display(Name = "Beskrivelse:")]
+        [Display(Name = "Beskrivelse")]
         public string Description
         {
             get { return _description; }
@@ -52,6 +54,7 @@ namespace SIKONSystem.Models
 
         private int _timeFrame;
 
+        [Display(Name="Tidsramme")]
         public int TimeFrame
         {
             get { return _timeFrame; }
@@ -70,6 +73,7 @@ namespace SIKONSystem.Models
         //Navigation Properties
         private Room _room;
 
+        [Display(Name="Lokale")]
         public Room Room
         {
             get { return _room; }
@@ -77,7 +81,7 @@ namespace SIKONSystem.Models
         }
 
         private Category _category;
-
+        [Display(Name="Kategori")]
         public Category Category
         {
             get { return _category; }

@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div>
+    <a asp-action="Index">Tilbage til oversigten</a>
+</div>
+
+<h1>Detaljer</h1>
 
 <div>
     <h4>Booking</h4>
@@ -26,6 +30,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.BookingId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.BookingId">Rediger</a> |
+    <a asp-action="Delete" asp-route-id="@Model.BookingId">Slet</a>
 </div>

@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div>
+    <a asp-action="Index">Tilbage til oversigten</a>
+</div>
+
+<h1>Rediger</h1>
 
 <h4>Booking</h4>
 <hr />
@@ -25,13 +29,8 @@
                 <span asp-validation-for="LectureId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Gem" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
