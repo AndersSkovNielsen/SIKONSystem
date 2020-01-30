@@ -31,6 +31,6 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="RoomId" />
-        <input type="submit" value="Slet" class="btn btn-danger" />
+        <input type="submit" value="Slet" class="btn btn-danger" onclick="return confirm('Du er ved at slette alt data for @Model.Name.\n\nTryk OK for at fortsætte. Tryk Cancel for at fortryde.')" />
     </form>
 </div>

@@ -5,9 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+    <div>
+        <a asp-action="Index">Tilbage til oversigten</a>
+    </div>
 
-<h4>Lecture</h4>
+<h1>Rediger</h1>
+
+<h4>@Html.DisplayFor(model => model.Title)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
