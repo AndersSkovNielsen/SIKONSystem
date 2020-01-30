@@ -64,7 +64,7 @@ namespace SIKONSystem.Models
             }
             else
             {
-                new WaitList(this.UserId, L.LectureId); //Opdater
+                L.WaitList.Enqueue(new WaitList(this.UserId, L.LectureId));
                 return null;
             }
 
