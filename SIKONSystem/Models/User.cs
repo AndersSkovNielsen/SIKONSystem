@@ -56,49 +56,52 @@ namespace SIKONSystem.Models
         }
 
         //Methods
-        public Booking Partake(Lecture L)
-        {
-            if (L.Bookings.Count < L.Room.Capacity)
-            {
-                return Attend(L,this);
-            }
-            else
-            {
-                L.WaitList.Enqueue(new WaitList(this.UserId, L.LectureId));
-                return null;
-            }
+        //public Booking Partake(Lecture L)
+        //{
+        //    if (L.Bookings.Count < L.Room.Capacity)
+        //    {
+        //        return Attend(L,this);
+        //    }
+        //    else
+        //    {
+        //        L.WaitList.Enqueue(new WaitList(this.UserId, L.LectureId));
+        //        return null;
+        //    }
 
-        }
+        //}
 
-        public Booking Attend(Lecture L, User U)
-        {
-            return new Booking(U.UserId, L.LectureId);
-        }
+        //public Booking Attend(Lecture L, User U)
+        //{
+        //    Booking booking = new Booking(U.UserId, L.LectureId);
+        //    L.Bookings.Add(booking);
+        //    booking.User = U;
+        //    return booking;
+        //}
 
-        public Booking Cancel(Lecture L)
-        {
-            Booking returnVal=null;
-            foreach (Booking booking in L.Bookings)
-            {
-                if (booking.UserId==this.UserId)
-                {
-                    L.Bookings.Remove(booking);
-                    if (L.WaitList.Count != 0)
-                    {
-                        returnVal = Attend(L, L.WaitList.Dequeue().User);
+        //public Booking Cancel(Lecture L)
+        //{
+        //    Booking returnVal=null;
+        //    foreach (Booking booking in L.Bookings)
+        //    {
+        //        if (booking.UserId==this.UserId)
+        //        {
+        //            L.Bookings.Remove(booking);
+        //            if (L.WaitList.Count != 0)
+        //            {
+        //                returnVal = Attend(L, L.WaitList.Dequeue().User);
 
-                    }
-                    else returnVal = null;
-                }
-                else
-                {
-                    returnVal = null;
-                    throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
-                }
-            }
+        //            }
+        //            else returnVal = null;
+        //        }
+        //        else
+        //        {
+        //            returnVal = null;
+        //            throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
+        //        }
+        //    }
 
-            return returnVal;
-        }
+        //    return returnVal;
+        //}
 
 
     }

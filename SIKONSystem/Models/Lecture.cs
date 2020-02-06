@@ -70,6 +70,8 @@ namespace SIKONSystem.Models
             set { _spaces = value; }
         }
 
+        
+
         //Navigation Properties
         private Room _room;
 
@@ -90,7 +92,7 @@ namespace SIKONSystem.Models
 
         public ICollection<Booking> Bookings { get; set; }
 
-        public Queue<WaitList> WaitList { get; set; }
+        public /*Queue*/ICollection<WaitList> WaitList { get; set; }
 
         //Constructor
         public Lecture()

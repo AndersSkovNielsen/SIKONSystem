@@ -63,7 +63,28 @@ namespace SIKONSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                Lecture l = _context.Lecture.FindAsync(booking.LectureId).Result;
+                if (l.Spaces < 1)
+                {
+                    booking.WaitList = true;
+                    //WaitListsController wlCon = new WaitListsController(_context);
+                    //WaitList wl = new WaitList(booking);
+                    //wlCon.Create(wl);
+                    //return RedirectToAction(nameof(Index));
+                }
+
                 _context.Add(booking);
+                
+
+                LecturesController con = new LecturesController(_context);
+                foreach (var lecture in _context.Lecture)
+                {
+                    if (booking.LectureId == lecture.LectureId)
+                    {
+                        con.Edit(booking.LectureId, lecture);
+                    }
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -153,8 +174,28 @@ namespace SIKONSystem.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var booking = await _context.Booking.FindAsync(id);
+            int delLecture = booking.LectureId;
             _context.Booking.Remove(booking);
-            await _context.SaveChangesAsync();
+            bool waitListFound = false;
+
+            foreach (var booking1 in _context.Booking)
+            {
+                if (booking1.LectureId == delLecture && booking1.WaitList == true)
+                {
+                    booking1.WaitList = false;
+                    Edit(booking1.BookingId, booking1);
+                    waitListFound = true;
+                    break;
+                }
+            }
+
+            if (waitListFound == false)
+            {
+                LecturesController con = new LecturesController(_context);
+                con.Edit(delLecture, _context.Lecture.FindAsync(delLecture).Result);
+            }
+
+            /*await */_context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

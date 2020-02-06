@@ -12,29 +12,66 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lecture)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lecture)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lecture.Title)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.BookingId">Detaljer</a>
-            </td>
-        </tr>
-}
+    @foreach (var item in Model) {
+        if (item.WaitList == false)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lecture.Title)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BookingId">Detaljer</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+<h1>Oversigt af venteliste</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lecture)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        if (item.WaitList == true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lecture.Title)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BookingId">Detaljer</a>
+                </td>
+            </tr>
+        }
+    }
     </tbody>
 </table>

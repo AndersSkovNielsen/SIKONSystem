@@ -31,5 +31,11 @@ namespace SIKONSystem.Models
             UserId = userId;
             LectureId = lectureId;
         }
+
+        public WaitList(Booking b)
+        {
+            UserId = b.UserId;
+            LectureId = b.LectureId;
+        }
     }
 }

@@ -50,6 +50,8 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
+            var displayLecture = Display.LectureDisplay;
+
             var lecture = await _context.Lecture
                 .Include(l => l.Room)
                 .FirstOrDefaultAsync(m => m.LectureId == id);
@@ -57,6 +59,8 @@ namespace SIKONSystem.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Bruger"] = new SelectList(_context.User, "UserId", "Name");
 
             return View(lecture);
         }
@@ -76,7 +80,7 @@ namespace SIKONSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LectureId,RoomId,Title,StartTime,Speaker,CategoryId,Description,TimeFrame")] Lecture lecture)
         {
-            lecture.Spaces = SpacesCount(lecture);
+            //lecture.Spaces = SpacesCount(lecture);
 
             if (ModelState.IsValid)
             {
@@ -89,12 +93,13 @@ namespace SIKONSystem.Controllers
             return View(lecture);
         }
 
+        //Gammel hjælpemetode
         private int SpacesCount(Lecture l)
         {
             int count = 0;
             foreach (var booking in _context.Booking)
             {
-                if (booking.LectureId == l.LectureId)
+                if (booking.LectureId == l.LectureId && booking.WaitList == false)
                 {
                     count = count + 1;
                 }

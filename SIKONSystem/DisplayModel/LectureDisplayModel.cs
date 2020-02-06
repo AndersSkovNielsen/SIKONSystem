@@ -28,7 +28,7 @@ namespace SIKONSystem.DisplayModel
         public SelectList Rooms { get /*{ return  ;}*/; set; }
         public string Graphic { get; set; }
         public int NoOfTimeBlocks { get; set; }
-        public int NoOfRooms { get; set; }
+        public int NoOfRooms { get; set; } 
 
         //databascontext
         private readonly MvcDbContext _context;

@@ -13,6 +13,7 @@ namespace SIKONSystem.Models
         public int UserId { get; set; }
         [Display(Name = "Oplæg")]
         public int LectureId { get; set; }
+        public bool WaitList { get; set; }
 
 
         //Navigation Properties
