@@ -99,7 +99,7 @@ namespace SIKONSystem.Controllers
             int count = 0;
             foreach (var booking in _context.Booking)
             {
-                if (booking.LectureId == l.LectureId && booking.WaitList == false)
+                if (booking.LectureId == l.LectureId && booking.WaitList == 0)
                 {
                     count = count + 1;
                 }

@@ -61,36 +61,54 @@ namespace SIKONSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,UserId,LectureId")] Booking booking)
         {
+            bool waitListFound = false;
+
             if (ModelState.IsValid)
             {
+                
                 Lecture l = _context.Lecture.FindAsync(booking.LectureId).Result;
                 if (l.Spaces < 1)
                 {
-                    booking.WaitList = true;
+                    booking.WaitList = 1;
                     //WaitListsController wlCon = new WaitListsController(_context);
                     //WaitList wl = new WaitList(booking);
                     //wlCon.Create(wl);
                     //return RedirectToAction(nameof(Index));
+                    waitListFound = true;
                 }
 
                 _context.Add(booking);
-                
+                await _context.SaveChangesAsync();
 
-                LecturesController con = new LecturesController(_context);
-                foreach (var lecture in _context.Lecture)
+                if (waitListFound == false)
                 {
-                    if (booking.LectureId == lecture.LectureId)
-                    {
-                        con.Edit(booking.LectureId, lecture);
-                    }
+                    LecturesController con = new LecturesController(_context);
+                    con.Edit(booking.LectureId, _context.Lecture.FindAsync(booking.LectureId).Result);
                 }
 
-                await _context.SaveChangesAsync();
+                //CreateUpdateLecture(booking);
+
                 return RedirectToAction(nameof(Index));
             }
+            
             ViewData["LectureId"] = new SelectList(_context.Lecture, "LectureId", "Title", booking.LectureId);
             ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", booking.UserId);
             return View(booking);
+        }
+
+        private bool CreateUpdateLecture(Booking b)
+        {
+            LecturesController con = new LecturesController(_context);
+            foreach (var lecture in _context.Lecture)
+            {
+                if (b.LectureId == lecture.LectureId)
+                {
+                    con.Edit(b.LectureId, lecture);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // GET: Bookings/Edit/5
@@ -116,7 +134,7 @@ namespace SIKONSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingId,UserId,LectureId")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingId,UserId,LectureId,WaitList")] Booking booking)
         {
             if (id != booking.BookingId)
             {
@@ -173,29 +191,36 @@ namespace SIKONSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            bool waitListFound = false;
+            Booking waitBooking = new Booking();
             var booking = await _context.Booking.FindAsync(id);
             int delLecture = booking.LectureId;
             _context.Booking.Remove(booking);
-            bool waitListFound = false;
-
+            await _context.SaveChangesAsync();
+            
             foreach (var booking1 in _context.Booking)
             {
-                if (booking1.LectureId == delLecture && booking1.WaitList == true)
+                if (booking1.LectureId == delLecture && booking1.WaitList == 1)
                 {
-                    booking1.WaitList = false;
-                    Edit(booking1.BookingId, booking1);
+                    waitBooking = booking1;
+                    waitBooking.WaitList = 0;
                     waitListFound = true;
                     break;
                 }
             }
 
-            if (waitListFound == false)
+            if (waitListFound == true)
+            {
+                Edit(waitBooking.LectureId, waitBooking);
+            }
+            else
             {
                 LecturesController con = new LecturesController(_context);
                 con.Edit(delLecture, _context.Lecture.FindAsync(delLecture).Result);
             }
 
-            /*await */_context.SaveChangesAsync();
+            //Flyt op
+            
             return RedirectToAction(nameof(Index));
         }
 

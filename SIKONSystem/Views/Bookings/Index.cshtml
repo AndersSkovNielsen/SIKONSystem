@@ -24,7 +24,7 @@
     </thead>
     <tbody>
     @foreach (var item in Model) {
-        if (item.WaitList == false)
+        if (item.WaitList == 0)
         {
             <tr>
                 <td>
@@ -58,7 +58,7 @@
     </thead>
     <tbody>
     @foreach (var item in Model) {
-        if (item.WaitList == true)
+        if (item.WaitList == 1)
         {
             <tr>
                 <td>
