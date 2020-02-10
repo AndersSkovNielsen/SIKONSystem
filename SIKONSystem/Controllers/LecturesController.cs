@@ -15,11 +15,13 @@ namespace SIKONSystem.Controllers
     {
         private readonly MvcDbContext _context;
         private LectureDisplayModel Display;
+        private LectureDetailDM DetailDisplay;
 
         public LecturesController(MvcDbContext context)
         {
             _context = context;
             Display = new LectureDisplayModel(context);
+            DetailDisplay = new LectureDetailDM(context);
         }
 
         // GET: Lectures
@@ -50,19 +52,32 @@ namespace SIKONSystem.Controllers
                 return NotFound();
             }
 
-            var displayLecture = Display.LectureDisplay;
+            //var displayLecture = Display.LectureDisplay;
 
             var lecture = await _context.Lecture
                 .Include(l => l.Room)
+                .Include(l => l.Category)
                 .FirstOrDefaultAsync(m => m.LectureId == id);
             if (lecture == null)
             {
                 return NotFound();
             }
 
-            ViewData["Bruger"] = new SelectList(_context.User, "UserId", "Name");
+            
 
-            return View(lecture);
+            //ViewData["Bruger"] = new SelectList(_context.User, "UserId", "Name");
+
+            return View(GetDisplayDM(lecture));
+        }
+
+        private LectureDetailDM GetDisplayDM(Lecture lecture)
+        {
+            var mvcDbContext = _context.Booking;
+            DetailDisplay.Bookings = mvcDbContext.ToList();
+            var mvcDbContext2 = _context.User;
+            DetailDisplay.Users = mvcDbContext2.ToList();
+            DetailDisplay.Lecture = lecture;
+            return DetailDisplay;
         }
 
         // GET: Lectures/Create
@@ -176,6 +191,7 @@ namespace SIKONSystem.Controllers
 
             var lecture = await _context.Lecture
                 .Include(l => l.Room)
+                .Include(l => l.Category)
                 .FirstOrDefaultAsync(m => m.LectureId == id);
             if (lecture == null)
             {
