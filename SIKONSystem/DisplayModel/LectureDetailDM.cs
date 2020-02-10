@@ -13,6 +13,7 @@ namespace SIKONSystem.DisplayModel
         public List<Booking> Bookings { get; set; }
         public Booking Booking { get; set; }
         public List<User> Users { get; set; }
+        public User User { get; set; }
         private readonly MvcDbContext _context;
 
         public LectureDetailDM(MvcDbContext context)

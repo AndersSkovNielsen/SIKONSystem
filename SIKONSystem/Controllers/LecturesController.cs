@@ -65,7 +65,7 @@ namespace SIKONSystem.Controllers
 
             
 
-            //ViewData["Bruger"] = new SelectList(_context.User, "UserId", "Name");
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Name");
 
             return View(GetDisplayDM(lecture));
         }
