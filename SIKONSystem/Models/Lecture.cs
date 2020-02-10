@@ -92,13 +92,22 @@ namespace SIKONSystem.Models
 
         public ICollection<Booking> Bookings { get; set; }
 
-        public /*Queue*/ICollection<WaitList> WaitList { get; set; }
+        //public /*Queue*/ICollection<WaitList> WaitList { get; set; }
 
         //Constructor
         public Lecture()
         {
             Bookings = new List<Booking>();
             //Bookings = context.Booking.ToList().FindAll(x => x.Lecture.LectureId.Equals(context.Lecture))
+        }
+
+        public Lecture(string title, DateTime startTime, string speaker, string description, int timeFrame)
+        {
+            _title = title;
+            _startTime = startTime;
+            _speaker = speaker;
+            _description = description;
+            _timeFrame = timeFrame;
         }
     }
 }
