@@ -84,6 +84,7 @@ namespace SIKONSystem.Controllers
 
             if (ModelState.IsValid)
             {
+                lecture.Spaces = _context.Room.FindAsync(lecture.RoomId).Result.Capacity;
                 _context.Add(lecture);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

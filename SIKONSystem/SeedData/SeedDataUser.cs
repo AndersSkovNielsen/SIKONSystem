@@ -17,7 +17,6 @@ namespace SIKONSystem.SeedData
                 serviceProvider.GetRequiredService<
                     DbContextOptions<MvcDbContext>>()))
             {
-                // Look for any movies.
                 if (context.User.Any())
                 {
                     return;   // DB has been seeded
