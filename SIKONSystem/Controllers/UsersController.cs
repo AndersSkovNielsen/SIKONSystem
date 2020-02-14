@@ -142,6 +142,9 @@ namespace SIKONSystem.Controllers
             var user = await _context.User.FindAsync(id);
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
+
+
+
             return RedirectToAction(nameof(Index));
         }
 
