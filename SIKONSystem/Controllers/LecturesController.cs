@@ -37,13 +37,21 @@ namespace SIKONSystem.Controllers
             Display.RoomDisplayList = mvcDbContext.ToList();
             var NewMvcDbContext = _context.Lecture;
             Display.LectureDisplayList = NewMvcDbContext.ToList();
-            foreach (var L in Display.LectureDisplayList)
-            {
-                SpacesCount(L);
-            }
             var mvcContext = _context;
             Display.CategoryDisplayList = mvcContext.Category.ToList();
             Display.NoOfRooms = Display.RoomDisplayList.Count;
+            
+            foreach (var L in Display.LectureDisplayList)
+            {
+                int x = L.Spaces;
+                L.Spaces = SpacesCount(L);
+                if (x != L.Spaces)
+                {
+                    Edit(L.LectureId, L);
+                }
+
+            }
+
             return Display;
         }
     
