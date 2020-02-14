@@ -7,8 +7,9 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
-        LecturesController LecturesController= new LecturesController();
-        private MvcDbContext context = new MvcDbContext();
+        private MvcDbContext context;
+        LecturesController LecturesController= new LecturesController(context);
+        
 
         [TestMethod]
         public void TestMethod1()
