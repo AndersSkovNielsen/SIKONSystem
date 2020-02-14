@@ -56,53 +56,55 @@ namespace SIKONSystem.Models
         }
 
         //Methods
-        //public Booking Partake(Lecture L)
-        //{
-        //    if (L.Bookings.Count < L.Room.Capacity)
-        //    {
-        //        return Attend(L,this);
-        //    }
-        //    else
-        //    {
-        //        L.WaitList.Enqueue(new WaitList(this.UserId, L.LectureId));
-        //        return null;
-        //    }
+        public Booking Partake(Lecture L)
+        {
+            if (L.Bookings.Count < L.Room.Capacity)
+            {
+                return Attend(L, this.UserId);
+            }
+            else
+            {
+                L.WaitList.Enqueue(new WaitList(this.UserId, L.LectureId));
+                return null;
+            }
+        }
 
-        //}
+        public Booking Attend(Lecture L, int userId)
+        {
+            Booking booking = new Booking(userId, L.LectureId);
+            //booking.User = U;
+            L.Bookings.Add(booking);
+            return booking;
+        }
 
-        //public Booking Attend(Lecture L, User U)
-        //{
-        //    Booking booking = new Booking(U.UserId, L.LectureId);
-        //    L.Bookings.Add(booking);
-        //    booking.User = U;
-        //    return booking;
-        //}
+        public Booking Cancel(Lecture L)
+        {
+            Booking returnVal = null;
+            foreach (Booking booking in L.Bookings)
+            {
+                if (booking.UserId == UserId)
+                {
+                    L.Bookings.Remove(booking);
+                    if (L.WaitList.Count != 0)
+                    {
+                        int id = L.WaitList.Peek().UserId;
+                        L.WaitList.Dequeue();
+                        returnVal = Attend(L, id);
+                        return returnVal;
+                    }
+                    else return returnVal;
+                }
+                else
+                {
+                    throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
+                }
+            }
+            return returnVal;
+        }
 
-        //public Booking Cancel(Lecture L)
-        //{
-        //    Booking returnVal=null;
-        //    foreach (Booking booking in L.Bookings)
-        //    {
-        //        if (booking.UserId==this.UserId)
-        //        {
-        //            L.Bookings.Remove(booking);
-        //            if (L.WaitList.Count != 0)
-        //            {
-        //                returnVal = Attend(L, L.WaitList.Dequeue().User);
-
-        //            }
-        //            else returnVal = null;
-        //        }
-        //        else
-        //        {
-        //            returnVal = null;
-        //            throw new Exception("Fejl i afmelding: Du var ikke tilmeldt denne begivenhed");
-        //        }
-        //    }
-
-        //    return returnVal;
-        //}
-
-
+        public User(int id)
+        {
+            UserId = id;
+        }
     }
 }
